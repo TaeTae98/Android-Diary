@@ -1,0 +1,48 @@
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt">
+    <aapt:attr name="android:drawable">
+        <vector
+            android:width="180dp"
+            android:height="180dp"
+            android:viewportWidth="180"
+            android:viewportHeight="180">
+            <path
+                android:fillColor="#FFFFFF"
+                android:pathData="m98.28,58.35c1.39,3.57 1.59,6.05 0.79,9.62c-0.5,2.68 -1.88,6.64 -9.12,15.07l0,0c-7.14,-8.82 -8.33,-12.29 -9.12,-15.07c-0.79,-3.57 -0.5,-6.05 0.79,-9.62l-39.65,0l32.02,48.97l0,30.33l32.02,0l0,-30.33l32.02,-48.97c0,0 -39.75,0 -39.75,0z"
+                android:strokeWidth="1"/>
+            <path
+                android:name="icon_color"
+                android:pathData="m98.28,58.35c1.39,3.57 1.59,6.05 0.79,9.62c-0.5,2.68 -1.88,6.64 -9.12,15.07l0,0c-7.14,-8.82 -8.33,-12.29 -9.12,-15.07c-0.79,-3.57 -0.5,-6.05 0.79,-9.62l-39.65,0l32.02,48.97l0,30.33l32.02,0l0,-30.33l32.02,-48.97c0,0 -39.75,0 -39.75,0z"
+                android:strokeWidth="1">
+                <aapt:attr name="android:fillColor">
+                    <gradient
+                        android:endX="90"
+                        android:endY="135.36"
+                        android:startX="90"
+                        android:startY="58.35"
+                        android:type="linear">
+                        <item
+                            android:color="#FF00E893"
+                            android:offset="0" />
+                        <item
+                            android:color="#FF00E893"
+                            android:offset="0.33" />
+                        <item
+                            android:color="#FFE469D7"
+                            android:offset="0.87" />
+                    </gradient>
+                </aapt:attr>
+            </path>
+        </vector>
+    </aapt:attr>
+    <target android:name="icon_color">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="1000"
+                android:interpolator="@android:interpolator/accelerate_decelerate"
+                android:propertyName="fillAlpha"
+                android:valueFrom="0"
+                android:valueTo="1" />
+        </aapt:attr>
+    </target>
+</animated-vector>

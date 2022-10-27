@@ -11,10 +11,11 @@ import com.android.diary.ui.compose.core.button.AddFloatingButton
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MemoListScreenCompose(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onAdd: () -> Unit = {}
 ) = Scaffold(
     modifier = modifier,
-    floatingActionButton = { AddFloatingButton() }
+    floatingActionButton = { AddFloatingButton(onClick = onAdd) }
 ) {
     Content(modifier = Modifier.padding(it))
 }

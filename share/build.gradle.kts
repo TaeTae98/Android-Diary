@@ -1,5 +1,6 @@
 plugins {
     id("module-core")
+    id("navigation")
 }
 
 android {

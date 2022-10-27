@@ -3,14 +3,12 @@ package com.diary.android.presenter.memo.screen
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import com.android.diary.share.navigateToMemoDetail
-import com.android.diary.ui.compose.memo.MemoListScreenCompose
+import com.android.diary.ui.compose.memo.MemoDetailScreenCompose
 
 @Composable
-fun MemoListScreen(
+fun MemoDetailScreen(
     modifier: Modifier = Modifier,
     navController: NavController
-) = MemoListScreenCompose(
-    modifier = modifier,
-    onAdd = navController::navigateToMemoDetail
+) = MemoDetailScreenCompose(
+    modifier = modifier
 )

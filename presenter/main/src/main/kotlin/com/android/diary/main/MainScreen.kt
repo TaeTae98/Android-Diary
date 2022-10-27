@@ -1,6 +1,9 @@
 package com.android.diary.main
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -16,14 +19,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
-import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.android.diary.domain.DeepLink
 import com.android.diary.domain.isTrue
+import com.android.diary.share.isMainBottomBarVisible
+import com.android.diary.share.isSelected
 import com.diary.android.presenter.memo.memoGraph
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
@@ -36,7 +39,16 @@ fun MainScreen(
     navController: NavHostController = rememberAnimatedNavController()
 ) = Scaffold(
     modifier = modifier,
-    bottomBar = { MainBottomBar(navController = navController) }
+    bottomBar = {
+        val backStackEntry by navController.currentBackStackEntryAsState()
+        AnimatedVisibility(
+            visible = backStackEntry?.isMainBottomBarVisible().isTrue(),
+            enter = expandVertically(),
+            exit = shrinkVertically()
+        ) {
+            MainBottomBar(navController = navController)
+        }
+    }
 ) {
     MainNavHost(
         modifier = Modifier.padding(it),
@@ -102,10 +114,8 @@ private fun MainBottomBar(
     val backStackEntry by navController.currentBackStackEntryAsState()
 
     items.forEach { item ->
-        val label = stringResource(id = item.label)
-        NavigationBarItem(
-            selected = backStackEntry?.isSelected(item.route).isTrue(),
-            onClick = {
+        val onClick = remember {
+            {
                 navController.navigate(item.route) {
                     popUpTo(navController.graph.findStartDestination().id) {
                         saveState = true
@@ -114,14 +124,16 @@ private fun MainBottomBar(
                     restoreState = true
                     launchSingleTop = true
                 }
-            },
+            }
+        }
+
+        val label = stringResource(id = item.label)
+        NavigationBarItem(
+            selected = backStackEntry?.isSelected(item.route).isTrue(),
+            onClick = onClick,
             icon = { Icon(imageVector = item.icon, contentDescription = label) },
             label = { Text(text = label) },
             alwaysShowLabel = false
         )
     }
 }
-
-private fun NavBackStackEntry.isSelected(
-    route: String
-) = destination.hierarchy.any { it.route == route }

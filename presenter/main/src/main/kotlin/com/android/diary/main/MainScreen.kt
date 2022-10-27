@@ -12,14 +12,19 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.android.diary.domain.DeepLink
 import com.android.diary.domain.isTrue
+import com.diary.android.presenter.memo.memoGraph
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
@@ -47,17 +52,11 @@ private fun MainNavHost(
 ) = AnimatedNavHost(
     modifier = modifier,
     navController = navController,
-    startDestination = "memo",
-    route = "main"
+    startDestination = DeepLink.MEMO,
+    route = DeepLink.MAIN
 ) {
-    composable("memo") {
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(text = "memo")
-        }
-    }
+    memoGraph(navController = navController)
+
     composable("payment") {
         Box(
             modifier = Modifier.fillMaxSize(),
@@ -99,17 +98,30 @@ private fun MainBottomBar(
 ) = NavigationBar(
     modifier = modifier,
 ) {
+    val items = remember { MainNavigationItem.values() }
     val backStackEntry by navController.currentBackStackEntryAsState()
-    val currentDestination = backStackEntry?.destination
 
-    MainNavigationItem.values().forEach { item ->
+    items.forEach { item ->
         val label = stringResource(id = item.label)
         NavigationBarItem(
-            selected = currentDestination?.hierarchy?.any { it.route == item.route }.isTrue(),
-            onClick = { navController.navigate(item.route) },
+            selected = backStackEntry?.isSelected(item.route).isTrue(),
+            onClick = {
+                navController.navigate(item.route) {
+                    popUpTo(navController.graph.findStartDestination().id) {
+                        saveState = true
+                    }
+
+                    restoreState = true
+                    launchSingleTop = true
+                }
+            },
             icon = { Icon(imageVector = item.icon, contentDescription = label) },
             label = { Text(text = label) },
             alwaysShowLabel = false
         )
     }
 }
+
+private fun NavBackStackEntry.isSelected(
+    route: String
+) = destination.hierarchy.any { it.route == route }

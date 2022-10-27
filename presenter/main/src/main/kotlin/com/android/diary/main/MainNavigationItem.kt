@@ -8,6 +8,7 @@ import androidx.compose.material.icons.rounded.Folder
 import androidx.compose.material.icons.rounded.MoreHoriz
 import androidx.compose.material.icons.rounded.Tag
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.android.diary.domain.DeepLink
 import com.android.diary.share.StringResource
 
 enum class MainNavigationItem(
@@ -19,7 +20,7 @@ enum class MainNavigationItem(
     Memo(
         icon = Icons.Rounded.Article,
         label = StringResource.memo,
-        route = "memo",
+        route = DeepLink.MEMO,
     ),
     Payment(
         icon = Icons.Rounded.AttachMoney,

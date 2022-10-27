@@ -1,4 +1,4 @@
-package com.android.diary.ui
+package com.android.diary.ui.theme
 
 import androidx.compose.material.Colors
 import androidx.compose.material.lightColors

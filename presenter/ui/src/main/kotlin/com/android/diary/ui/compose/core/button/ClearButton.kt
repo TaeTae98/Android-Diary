@@ -1,25 +1,27 @@
 package com.android.diary.ui.compose.core.button
 
-import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.android.diary.ui.compose.core.icon.AddIcon
+import com.android.diary.ui.compose.core.icon.ClearIcon
 import com.android.diary.ui.theme.DiaryTheme3
 
 @Composable
-fun AddFloatingButton(
+fun ClearButton(
     modifier: Modifier = Modifier,
-    onClick: () -> Unit = {}
-) = FloatingActionButton(
+    onClick: () -> Unit = {},
+    enabled: Boolean = true
+) = IconButton(
     modifier = modifier,
-    onClick = onClick
+    onClick = onClick,
+    enabled = enabled
 ) {
-    AddIcon()
+    ClearIcon()
 }
 
 @Preview
 @Composable
 private fun Preview() = DiaryTheme3 {
-    AddFloatingButton()
+    ClearButton()
 }

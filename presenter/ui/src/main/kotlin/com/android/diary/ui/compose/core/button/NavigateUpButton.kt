@@ -1,25 +1,25 @@
 package com.android.diary.ui.compose.core.button
 
-import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.android.diary.ui.compose.core.icon.AddIcon
+import com.android.diary.ui.compose.core.icon.NavigateUpIcon
 import com.android.diary.ui.theme.DiaryTheme3
 
 @Composable
-fun AddFloatingButton(
+fun NavigateUpButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
-) = FloatingActionButton(
+) = IconButton(
     modifier = modifier,
     onClick = onClick
 ) {
-    AddIcon()
+    NavigateUpIcon()
 }
 
 @Preview
 @Composable
 private fun Preview() = DiaryTheme3 {
-    AddFloatingButton()
+    NavigateUpButton()
 }

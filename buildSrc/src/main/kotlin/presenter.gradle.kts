@@ -1,6 +1,7 @@
 plugins {
     id("module")
     id("compose")
+    id("hilt")
 }
 
 dependencies {

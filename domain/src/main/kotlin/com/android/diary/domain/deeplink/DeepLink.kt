@@ -1,4 +1,6 @@
-package com.android.diary.domain
+package com.android.diary.domain.deeplink
+
+import com.android.diary.domain.Parameter
 
 object DeepLink {
     private val APP = DeepLinkBuilder(scheme = "diary")

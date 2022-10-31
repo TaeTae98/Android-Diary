@@ -1,4 +1,4 @@
-package com.android.diary.domain
+package com.android.diary.domain.deeplink
 
 data class DeepLinkBuilder(
     private val scheme: Any = "",

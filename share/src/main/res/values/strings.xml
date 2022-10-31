@@ -13,5 +13,7 @@
     <string name="navigate_up">NavigateUp</string>
     <string name="clear">Clear</string>
 
+    <string name="default_error_message">Something went wrong. Try again or update application.</string>
+
     <string name="title_is_empty">Title is empty.</string>
 </resources>

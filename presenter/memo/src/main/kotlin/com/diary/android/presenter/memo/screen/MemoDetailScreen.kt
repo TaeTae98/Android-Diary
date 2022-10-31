@@ -35,6 +35,13 @@ fun MemoDetailScreen(
                 is MemoDetailAction.TitleEmpty -> snackbarHostState.show(
                     message = context.getString(StringResource.title_is_empty)
                 )
+                is MemoDetailAction.Add -> snackbarHostState.show(
+                    message = it.title
+                )
+                is MemoDetailAction.Failure -> snackbarHostState.show(
+                    context = context,
+                    throwable = it.throwable
+                )
             }
         }
     }

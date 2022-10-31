@@ -8,7 +8,7 @@ import androidx.compose.material.icons.rounded.Folder
 import androidx.compose.material.icons.rounded.MoreHoriz
 import androidx.compose.material.icons.rounded.Tag
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.android.diary.domain.DeepLink
+import com.android.diary.domain.deeplink.DeepLink
 import com.android.diary.share.StringResource
 
 enum class MainNavigationItem(

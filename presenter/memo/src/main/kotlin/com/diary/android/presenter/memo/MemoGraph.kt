@@ -5,7 +5,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
-import com.android.diary.domain.DeepLink
+import com.android.diary.domain.deeplink.DeepLink
 import com.android.diary.domain.Parameter
 import com.diary.android.presenter.memo.screen.MemoDetailScreen
 import com.diary.android.presenter.memo.screen.MemoListScreen

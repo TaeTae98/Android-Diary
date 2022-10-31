@@ -4,7 +4,10 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.diary.domain.Parameter
-import com.android.diary.domain.onFalse
+import com.android.diary.domain.model.Memo
+import com.android.diary.domain.usecase.MemoUpsertUseCase
+import com.android.diary.domain.utils.onFalse
+import com.android.diary.domain.utils.onTrue
 import com.android.diary.ui.uistate.core.TextInputUiState
 import com.android.diary.ui.uistate.memo.MemoDetailUiState
 import com.diary.android.presenter.memo.action.MemoDetailAction
@@ -15,7 +18,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MemoDetailViewModel @Inject constructor(
-    private val savedStateHandle: SavedStateHandle
+    private val savedStateHandle: SavedStateHandle,
+    private val memoUpsertUseCase: MemoUpsertUseCase,
 ) : ViewModel() {
     private val _action = MutableSharedFlow<MemoDetailAction>()
     val action = _action.asSharedFlow()
@@ -83,7 +87,7 @@ class MemoDetailViewModel @Inject constructor(
                 onNavigateUp = ::navigateUp,
                 titleUiState = titleUiState,
                 descriptionUiState = descriptionUiState,
-                onAdd = ::add
+                onAdd = ::upsert
             )
         } else {
             MemoDetailUiState.Detail(
@@ -100,7 +104,7 @@ class MemoDetailViewModel @Inject constructor(
                 onNavigateUp = ::navigateUp,
                 titleUiState = titleUiState.value,
                 descriptionUiState = descriptionUiState.value,
-                onAdd = ::add
+                onAdd = ::upsert
             )
         } else {
             MemoDetailUiState.Detail(
@@ -129,8 +133,24 @@ class MemoDetailViewModel @Inject constructor(
         value = description
     )
 
-    private fun add() = viewModelScope.launch {
+    private fun upsert() = viewModelScope.launch {
         requireTitle().onFalse { return@launch }
+
+        val memo = Memo(
+            id = id.value,
+            title = title.value,
+            description = descriptionUiState.value.value
+        )
+
+        memoUpsertUseCase(memo).onSuccess {
+            setTitle("")
+            setDescription("")
+            isAddMode.value.onTrue {
+                _action.emit(MemoDetailAction.Add(memo.title))
+            }
+        }.onFailure {
+            _action.emit(MemoDetailAction.Failure(it))
+        }
     }
 
     private fun requireTitle() = title.value.isNotEmpty().onFalse {

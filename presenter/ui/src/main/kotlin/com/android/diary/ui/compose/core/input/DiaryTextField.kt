@@ -11,9 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.tooling.preview.Preview
-import com.android.diary.domain.isNotNull
-import com.android.diary.domain.onFalse
-import com.android.diary.domain.onTrue
+import com.android.diary.domain.utils.isNotNull
+import com.android.diary.domain.utils.onTrue
 import com.android.diary.ui.uistate.core.TextInputUiState
 
 @OptIn(ExperimentalMaterial3Api::class)

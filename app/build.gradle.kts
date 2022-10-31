@@ -11,8 +11,8 @@ android {
 
     defaultConfig {
         applicationId = "com.android.diary"
-        minSdk =Build.MIN_SDK
-        targetSdk =Build.TARGET_SDK
+        minSdk = Build.MIN_SDK
+        targetSdk = Build.TARGET_SDK
         versionCode = Build.VERSION_CODE
         versionName = Build.VERSION_NAME
 
@@ -24,8 +24,11 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled =false
-            proguardFiles (getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -43,6 +46,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":data"))
+    implementation(project(":domain"))
     implementation(project(":presenter:main"))
 
     implementation("com.google.dagger:hilt-android:2.42")

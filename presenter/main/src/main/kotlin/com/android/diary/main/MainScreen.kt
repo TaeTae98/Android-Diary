@@ -23,8 +23,8 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.android.diary.domain.DeepLink
-import com.android.diary.domain.isTrue
+import com.android.diary.domain.deeplink.DeepLink
+import com.android.diary.domain.utils.isTrue
 import com.android.diary.share.isMainBottomBarVisible
 import com.android.diary.share.isSelected
 import com.diary.android.presenter.memo.memoGraph

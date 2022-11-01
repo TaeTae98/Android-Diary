@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -22,8 +24,30 @@ android {
         }
     }
 
+    signingConfigs {
+        getByName("debug") {
+            storeFile = file("keystore/debug.keystore")
+            keyAlias = localProperty("DEBUG_KEY_ALIAS")
+            storePassword = localProperty("DEBUG_KEY_STORE_PASSWORD")
+            keyPassword = localProperty("DEBUG_KEY_PASSWORD")
+        }
+
+        create("release") {
+            storeFile = file("keystore/release.keystore")
+            keyAlias = localProperty("RELEASE_KEY_ALIAS")
+            storePassword = localProperty("RELEASE_KEY_STORE_PASSWORD")
+            keyPassword = localProperty("RELEASE_KEY_PASSWORD")
+        }
+    }
+
     buildTypes {
+        debug {
+            signingConfig = signingConfigs.getByName("debug")
+        }
+
         release {
+            signingConfig = signingConfigs.getByName("release")
+
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -60,3 +84,5 @@ dependencies {
 kapt {
     correctErrorTypes = true
 }
+
+fun localProperty(key: String) = gradleLocalProperties(rootDir).getProperty(key)

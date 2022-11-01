@@ -1,6 +1,5 @@
 package com.android.diary.ui.uistate.memo
 
-import androidx.compose.runtime.Immutable
 import com.android.diary.ui.uistate.core.TextInputUiState
 
 sealed class MemoDetailUiState {
@@ -18,6 +17,6 @@ sealed class MemoDetailUiState {
     data class Detail(
         override val onNavigateUp: () -> Unit = {},
         override val titleUiState: TextInputUiState = TextInputUiState(),
-        override val descriptionUiState: TextInputUiState = TextInputUiState()
+        override val descriptionUiState: TextInputUiState = TextInputUiState(),
     ) : MemoDetailUiState()
 }

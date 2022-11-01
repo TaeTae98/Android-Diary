@@ -1,18 +1,11 @@
 package com.android.diary.main
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.expandVertically
-import androidx.compose.animation.shrinkVertically
+import androidx.compose.animation.*
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -62,7 +55,7 @@ private fun MainNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController
 ) = AnimatedNavHost(
-    modifier = modifier,
+    modifier = modifier.fillMaxSize(),
     navController = navController,
     startDestination = DeepLink.MEMO,
     route = DeepLink.MAIN

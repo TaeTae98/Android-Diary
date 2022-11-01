@@ -22,7 +22,7 @@ class MemoListViewModel @Inject constructor(
     val action = _action.asSharedFlow()
 
     val uiState = MemoListUiState.List(
-        onAdd = ::navigateUp
+        onAdd = ::navigateToDetail
     )
 
     val memoUiState = pagingMemoUseCase(Unit).onFailure {
@@ -30,11 +30,12 @@ class MemoListViewModel @Inject constructor(
     }.getOrDefault(emptyFlow()).mapPaging {
         MemoUiState.Simple(
             id = it.id,
-            title = it.title
+            title = it.title,
+            onClickMemo = ::navigateToDetail
         )
     }
 
-    private fun navigateUp() = viewModelScope.launch {
-        _action.emit(MemoListAction.Add)
+    private fun navigateToDetail(id: Long = 0L) = viewModelScope.launch {
+        _action.emit(MemoListAction.NavigateToDetail(id))
     }
 }

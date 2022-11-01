@@ -12,6 +12,7 @@ android {
 }
 
 dependencies {
+    implementation("androidx.activity:activity-compose:1.6.1")
     implementation("androidx.compose.animation:animation:1.3.0")
     implementation("androidx.compose.foundation:foundation:1.3.0")
     implementation("androidx.compose.material:material:1.3.0")

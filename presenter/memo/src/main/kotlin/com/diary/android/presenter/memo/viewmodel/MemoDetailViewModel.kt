@@ -4,10 +4,12 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.diary.domain.constant.Parameter
+import com.android.diary.domain.model.Id
 import com.android.diary.domain.model.Memo
+import com.android.diary.domain.usecase.FindMemoByIdUseCase
 import com.android.diary.domain.usecase.MemoUpsertUseCase
 import com.android.diary.domain.utils.onFalse
-import com.android.diary.domain.utils.onTrue
+import com.android.diary.domain.utils.onNullOrFalse
 import com.android.diary.ui.uistate.core.TextInputUiState
 import com.android.diary.ui.uistate.memo.MemoDetailUiState
 import com.diary.android.presenter.memo.action.MemoDetailAction
@@ -19,6 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MemoDetailViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
+    private val findMemoByIdUseCase: FindMemoByIdUseCase,
     private val memoUpsertUseCase: MemoUpsertUseCase,
 ) : ViewModel() {
     private val _action = MutableSharedFlow<MemoDetailAction>()
@@ -29,12 +32,12 @@ class MemoDetailViewModel @Inject constructor(
         initialValue = 0L
     )
 
-    private val isAddMode = id.map {
-        it == 0L
+    private val isDetailMode = id.map {
+        it != 0L
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.Eagerly,
-        initialValue = id.value == 0L
+        initialValue = id.value != 0L
     )
 
     private val title = savedStateHandle.getStateFlow(
@@ -78,44 +81,60 @@ class MemoDetailViewModel @Inject constructor(
     )
 
     val uiState = combine(
-        isAddMode,
+        isDetailMode,
         titleUiState,
         descriptionUiState
-    ) { isAddMode, titleUiState, descriptionUiState ->
-        if (isAddMode) {
+    ) { isDetailMode, titleUiState, descriptionUiState ->
+        if (isDetailMode) {
+            MemoDetailUiState.Detail(
+                onNavigateUp = ::navigateUp,
+                titleUiState = titleUiState,
+                descriptionUiState = descriptionUiState,
+            )
+        } else {
             MemoDetailUiState.Add(
                 onNavigateUp = ::navigateUp,
                 titleUiState = titleUiState,
                 descriptionUiState = descriptionUiState,
                 onAdd = ::upsert
             )
-        } else {
-            MemoDetailUiState.Detail(
-                onNavigateUp = ::navigateUp,
-                titleUiState = titleUiState,
-                descriptionUiState = descriptionUiState
-            )
         }
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.Eagerly,
-        initialValue = if (isAddMode.value) {
+        initialValue = if (isDetailMode.value) {
+            MemoDetailUiState.Detail(
+                onNavigateUp = ::navigateUp,
+                titleUiState = titleUiState.value,
+                descriptionUiState = descriptionUiState.value,
+            )
+        } else {
             MemoDetailUiState.Add(
                 onNavigateUp = ::navigateUp,
                 titleUiState = titleUiState.value,
                 descriptionUiState = descriptionUiState.value,
                 onAdd = ::upsert
             )
-        } else {
-            MemoDetailUiState.Detail(
-                onNavigateUp = ::navigateUp,
-                titleUiState = titleUiState.value,
-                descriptionUiState = descriptionUiState.value
-            )
         }
     )
 
+    init {
+        savedStateHandle.get<Boolean>(Parameter.INITIALIZED).onNullOrFalse {
+            viewModelScope.launch {
+                findMemoByIdUseCase(Id(id.value)).getOrNull()?.let { memo ->
+                    setTitle(memo.title)
+                    setDescription(memo.description)
+                    savedStateHandle[Parameter.INITIALIZED] = true
+                }
+            }
+        }
+    }
+
     private fun navigateUp() = viewModelScope.launch {
+        if (isDetailMode.value) {
+            upsert().join()
+        }
+
         _action.emit(MemoDetailAction.NavigateUp)
     }
 
@@ -143,15 +162,16 @@ class MemoDetailViewModel @Inject constructor(
         )
 
         memoUpsertUseCase(memo).onSuccess {
-            setTitle("")
-            setDescription("")
-            isAddMode.value.onTrue {
+            isDetailMode.value.onFalse {
+                setTitle("")
+                setDescription("")
                 _action.emit(MemoDetailAction.Add(memo.title))
             }
         }.onFailure {
             _action.emit(MemoDetailAction.Failure(it))
         }
     }
+
 
     private fun requireTitle() = title.value.isNotEmpty().onFalse {
         viewModelScope.launch {

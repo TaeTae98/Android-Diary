@@ -7,8 +7,8 @@ import androidx.compose.ui.graphics.Color
 
 object DiaryColor3 {
     private val lightColorScheme = lightColorScheme(
-        primary = DiaryColor.lightPrimary,
-        surface = DiaryColor.lightSurface
+//        primary = DiaryColor.lightPrimary,
+//        surface = DiaryColor.lightSurface
     )
 
     val primary: Color

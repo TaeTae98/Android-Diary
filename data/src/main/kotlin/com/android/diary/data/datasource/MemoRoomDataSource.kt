@@ -8,6 +8,9 @@ import com.android.diary.data.room.BaseDao
 
 @Dao
 interface MemoRoomDataSource : BaseDao<MemoEntity> {
+    @Query("SELECT * FROM MemoEntity WHERE id = :id")
+    suspend fun findById(id: Long): MemoEntity?
+
     @Query("SELECT * FROM MemoEntity")
     fun pagingAll(): PagingSource<Int, MemoEntity>
 }

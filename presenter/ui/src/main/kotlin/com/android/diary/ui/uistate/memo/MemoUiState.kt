@@ -6,6 +6,9 @@ sealed class MemoUiState {
 
     data class Simple(
         override val id: Long = 0L,
-        override val title: String = ""
-    ) : MemoUiState()
+        override val title: String = "",
+        private val onClickMemo: (id: Long) -> Unit = {}
+    ) : MemoUiState() {
+        fun onClick() = onClickMemo(id)
+    }
 }

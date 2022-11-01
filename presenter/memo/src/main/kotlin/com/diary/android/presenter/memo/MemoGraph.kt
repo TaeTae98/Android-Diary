@@ -6,7 +6,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import com.android.diary.domain.deeplink.DeepLink
-import com.android.diary.domain.Parameter
+import com.android.diary.domain.constant.Parameter
 import com.diary.android.presenter.memo.screen.MemoDetailScreen
 import com.diary.android.presenter.memo.screen.MemoListScreen
 import com.google.accompanist.navigation.animation.composable

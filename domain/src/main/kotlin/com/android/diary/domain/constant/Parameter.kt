@@ -1,4 +1,4 @@
-package com.android.diary.domain
+package com.android.diary.domain.constant
 
 object Parameter {
     const val ID = "id"

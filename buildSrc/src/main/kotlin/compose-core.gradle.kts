@@ -21,6 +21,7 @@ dependencies {
     implementation("androidx.compose.runtime:runtime:1.3.0")
     implementation("androidx.compose.ui:ui:1.3.0")
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.27.0")
+    implementation("androidx.paging:paging-compose:1.0.0-alpha17")
 
     debugImplementation("androidx.compose.ui:ui-tooling:1.3.0")
 }

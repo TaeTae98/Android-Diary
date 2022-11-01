@@ -24,8 +24,8 @@ fun MemoDetailScreen(
     memoDetailViewModel: MemoDetailViewModel = hiltViewModel()
 ) = MemoDetailScreenCompose(
     modifier = modifier,
+    snackbarHostState = snackbarHostState,
     uiState = memoDetailViewModel.uiState.collectAsState().value,
-    snackbarHostState = snackbarHostState
 ).also {
     val context = LocalContext.current
     LaunchedEffect(memoDetailViewModel) {

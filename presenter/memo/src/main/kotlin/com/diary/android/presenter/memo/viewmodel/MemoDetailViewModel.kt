@@ -3,7 +3,7 @@ package com.diary.android.presenter.memo.viewmodel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.android.diary.domain.Parameter
+import com.android.diary.domain.constant.Parameter
 import com.android.diary.domain.model.Memo
 import com.android.diary.domain.usecase.MemoUpsertUseCase
 import com.android.diary.domain.utils.onFalse

@@ -17,8 +17,8 @@ import com.android.diary.ui.uistate.memo.MemoDetailUiState
 @Composable
 fun MemoDetailScreenCompose(
     modifier: Modifier = Modifier,
+    snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
     uiState: MemoDetailUiState = MemoDetailUiState.Detail(),
-    snackbarHostState: SnackbarHostState = remember { SnackbarHostState() }
 ) = Scaffold(
     modifier = modifier,
     topBar = { TopBar(onNavigateUp = uiState.onNavigateUp) },

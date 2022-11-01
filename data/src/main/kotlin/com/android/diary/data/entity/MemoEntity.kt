@@ -16,4 +16,10 @@ data class MemoEntity(
         title = memo.title,
         description = memo.description
     )
+
+    fun toDomain() = Memo(
+        id = id,
+        title = title,
+        description = description
+    )
 }

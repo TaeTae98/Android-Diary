@@ -10,4 +10,5 @@ java {
 
 dependencies {
     implementation("javax.inject:javax.inject:1")
+    implementation("androidx.paging:paging-common:3.1.1")
 }

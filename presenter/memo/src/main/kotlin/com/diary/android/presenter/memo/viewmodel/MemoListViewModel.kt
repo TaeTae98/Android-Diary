@@ -2,6 +2,8 @@ package com.diary.android.presenter.memo.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.android.diary.domain.model.Id
+import com.android.diary.domain.usecase.DeleteMemoByIdUseCase
 import com.android.diary.domain.usecase.PagingMemoUseCase
 import com.android.diary.domain.utils.mapPaging
 import com.android.diary.ui.uistate.memo.MemoListUiState
@@ -16,13 +18,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MemoListViewModel @Inject constructor(
-    pagingMemoUseCase: PagingMemoUseCase
+    pagingMemoUseCase: PagingMemoUseCase,
+    private val deleteMemoByIdUseCase: DeleteMemoByIdUseCase
 ) : ViewModel() {
     private val _action = MutableSharedFlow<MemoListAction>()
     val action = _action.asSharedFlow()
 
     val uiState = MemoListUiState.List(
-        onAdd = ::navigateToDetail
+        onAdd = ::detail
     )
 
     val memoUiState = pagingMemoUseCase(Unit).onFailure {
@@ -31,11 +34,16 @@ class MemoListViewModel @Inject constructor(
         MemoUiState.Simple(
             id = it.id,
             title = it.title,
-            onClickMemo = ::navigateToDetail
+            onClickMemo = ::detail,
+            onDeleteMemo = ::delete
         )
     }
 
-    private fun navigateToDetail(id: Long = 0L) = viewModelScope.launch {
+    private fun detail(id: Long = 0L) = viewModelScope.launch {
         _action.emit(MemoListAction.NavigateToDetail(id))
+    }
+
+    private fun delete(id: Long = 0L) = viewModelScope.launch {
+        deleteMemoByIdUseCase(Id(id))
     }
 }

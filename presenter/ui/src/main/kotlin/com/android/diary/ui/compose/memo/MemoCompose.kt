@@ -32,7 +32,7 @@ private fun SimpleMemo(
     uiState: MemoUiState.Simple
 ) = Card(
     modifier = modifier,
-    onClick = uiState::onClick
+    onClick = uiState.onClick
 ) {
     Box(
         modifier = Modifier

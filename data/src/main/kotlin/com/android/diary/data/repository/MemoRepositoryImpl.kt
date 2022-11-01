@@ -15,6 +15,7 @@ class MemoRepositoryImpl @Inject constructor(
 ) : MemoRepository {
     override suspend fun upsert(memo: Memo) = memoRoomDataSource.upsert(MemoEntity(memo))
     override suspend fun findById(id: Long) = memoRoomDataSource.findById(id)?.toDomain()
+    override suspend fun deleteById(id: Long) = memoRoomDataSource.deleteById(id)
 
     override fun pagingAll() = Pager(
         config = PagingConfig(pageSize = DEFAULT_PAGING_SIZE),

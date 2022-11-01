@@ -7,8 +7,10 @@ sealed class MemoUiState {
     data class Simple(
         override val id: Long = 0L,
         override val title: String = "",
-        private val onClickMemo: (id: Long) -> Unit = {}
+        private val onClickMemo: (id: Long) -> Unit = {},
+        private val onDeleteMemo: (id: Long) -> Unit = {},
     ) : MemoUiState() {
-        fun onClick() = onClickMemo(id)
+        val onClick = { onClickMemo(id) }
+        val onDelete = { onDeleteMemo(id) }
     }
 }

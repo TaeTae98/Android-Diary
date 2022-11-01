@@ -1,7 +1,9 @@
 package com.android.diary.ui.compose.memo
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -17,7 +19,9 @@ import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
+import com.android.diary.domain.utils.isNotNull
 import com.android.diary.ui.compose.core.button.AddFloatingButton
+import com.android.diary.ui.compose.modifer.swipeToDismiss
 import com.android.diary.ui.theme.DiaryDimen
 import com.android.diary.ui.theme.DiaryTheme3
 import com.android.diary.ui.uistate.memo.MemoListUiState
@@ -30,7 +34,7 @@ fun MemoListScreenCompose(
     modifier: Modifier = Modifier,
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
     uiState: MemoListUiState = MemoListUiState.List(),
-    memoItems: LazyPagingItems<out MemoUiState> = flowOf<PagingData<MemoUiState>>(
+    memoItems: LazyPagingItems<out MemoUiState> = flowOf(
         PagingData.from(listOf(MemoUiState.Simple(title = "Memo")))
     ).collectAsLazyPagingItems(),
 ) = Scaffold(
@@ -55,12 +59,13 @@ private fun FloatingButton(
     )
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun Content(
     modifier: Modifier = Modifier,
     memoItems: LazyPagingItems<out MemoUiState>
 ) = LazyColumn(
-    modifier = modifier,
+    modifier = modifier.fillMaxSize(),
     contentPadding = PaddingValues(
         horizontal = DiaryDimen.DEFAULT_HORIZONTAL,
         vertical = DiaryDimen.DEFAULT_VERTICAL
@@ -71,7 +76,15 @@ private fun Content(
         items = memoItems,
         key = { it.id }
     ) {
-        MemoCompose(uiState = it)
+        val simple = (it as? MemoUiState.Simple)
+
+        MemoCompose(
+            modifier = Modifier.swipeToDismiss(
+                enable = simple.isNotNull(),
+                onDismissed = simple?.onDelete
+            ).animateItemPlacement(),
+            uiState = it,
+        )
     }
 }
 

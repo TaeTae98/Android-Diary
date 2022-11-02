@@ -21,6 +21,7 @@ import com.android.diary.domain.utils.isTrue
 import com.android.diary.share.isMainBottomBarVisible
 import com.android.diary.share.isSelected
 import com.diary.android.presenter.memo.memoGraph
+import com.diary.android.presenter.more.moreGraph
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
@@ -61,7 +62,7 @@ private fun MainNavHost(
     route = DeepLink.MAIN
 ) {
     memoGraph(navController = navController)
-
+    moreGraph(navController = navController)
     composable("payment") {
         Box(
             modifier = Modifier.fillMaxSize(),
@@ -84,14 +85,6 @@ private fun MainNavHost(
             contentAlignment = Alignment.Center
         ) {
             Text(text = "file")
-        }
-    }
-    composable("more") {
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(text = "more")
         }
     }
 }

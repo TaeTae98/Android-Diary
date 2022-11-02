@@ -4,6 +4,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.dagger.hilt.android")
+    id("com.google.gms.google-services")
     kotlin("kapt")
 }
 
@@ -43,6 +44,7 @@ android {
     buildTypes {
         debug {
             signingConfig = signingConfigs.getByName("debug")
+            applicationIdSuffix = ".debug"
         }
 
         release {
@@ -79,6 +81,9 @@ dependencies {
 
     implementation("androidx.core:core-splashscreen:1.0.0")
     implementation("com.google.android.material:material:1.7.0")
+
+    implementation(platform("com.google.firebase:firebase-bom:31.0.2"))
+    implementation("com.google.firebase:firebase-analytics-ktx")
 }
 
 kapt {

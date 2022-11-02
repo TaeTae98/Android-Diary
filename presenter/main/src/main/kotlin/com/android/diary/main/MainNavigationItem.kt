@@ -2,11 +2,7 @@ package com.android.diary.main
 
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Article
-import androidx.compose.material.icons.rounded.AttachMoney
-import androidx.compose.material.icons.rounded.Folder
-import androidx.compose.material.icons.rounded.MoreHoriz
-import androidx.compose.material.icons.rounded.Tag
+import androidx.compose.material.icons.rounded.*
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.android.diary.domain.deeplink.DeepLink
 import com.android.diary.share.StringResource
@@ -40,6 +36,6 @@ enum class MainNavigationItem(
     More(
         icon = Icons.Rounded.MoreHoriz,
         label = StringResource.more,
-        route = "more"
+        route = DeepLink.MORE
     )
 }

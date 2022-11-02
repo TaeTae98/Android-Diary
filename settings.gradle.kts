@@ -20,5 +20,6 @@ include(":app", ":data", ":domain", ":share")
 include(
     ":presenter:ui",
     ":presenter:main",
-    ":presenter:memo"
+    ":presenter:memo",
+    ":presenter:more"
 )

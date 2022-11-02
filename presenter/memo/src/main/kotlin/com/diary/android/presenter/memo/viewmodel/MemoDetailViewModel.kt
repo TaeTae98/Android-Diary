@@ -6,8 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.android.diary.domain.constant.Parameter
 import com.android.diary.domain.model.Id
 import com.android.diary.domain.model.Memo
-import com.android.diary.domain.usecase.FindMemoByIdUseCase
-import com.android.diary.domain.usecase.MemoUpsertUseCase
+import com.android.diary.domain.usecase.memo.FindMemoByIdUseCase
+import com.android.diary.domain.usecase.memo.MemoUpsertUseCase
 import com.android.diary.domain.utils.onFalse
 import com.android.diary.domain.utils.onNullOrFalse
 import com.android.diary.ui.uistate.core.TextInputUiState

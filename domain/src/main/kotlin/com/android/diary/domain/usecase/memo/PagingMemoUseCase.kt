@@ -1,4 +1,4 @@
-package com.android.diary.domain.usecase
+package com.android.diary.domain.usecase.memo
 
 import androidx.paging.PagingData
 import com.android.diary.domain.model.Memo

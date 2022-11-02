@@ -8,4 +8,5 @@ android {
 
 dependencies {
     implementation(project(":presenter:memo"))
+    implementation(project(":presenter:more"))
 }

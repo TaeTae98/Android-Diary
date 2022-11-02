@@ -3,8 +3,8 @@ package com.diary.android.presenter.memo.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.diary.domain.model.Id
-import com.android.diary.domain.usecase.DeleteMemoByIdUseCase
-import com.android.diary.domain.usecase.PagingMemoUseCase
+import com.android.diary.domain.usecase.memo.DeleteMemoByIdUseCase
+import com.android.diary.domain.usecase.memo.PagingMemoUseCase
 import com.android.diary.domain.utils.mapPaging
 import com.android.diary.ui.uistate.memo.MemoListUiState
 import com.android.diary.ui.uistate.memo.MemoUiState

@@ -1,6 +1,7 @@
 plugins {
     id("module")
     id("hilt-core")
+    id("firebase")
     kotlin("kapt")
 }
 

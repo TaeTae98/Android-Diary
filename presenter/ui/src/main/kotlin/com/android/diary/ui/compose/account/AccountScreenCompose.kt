@@ -1,7 +1,5 @@
 package com.android.diary.ui.compose.account
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -14,6 +12,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.android.diary.share.StringResource
 import com.android.diary.ui.compose.core.button.NavigateUpButton
+import com.android.diary.ui.compose.core.icon.LoginIcon
+import com.android.diary.ui.compose.core.icon.LogoutIcon
+import com.android.diary.ui.compose.more.MoreText
+import com.android.diary.ui.theme.DiaryTypography3
 import com.android.diary.ui.uistate.account.AccountUiState
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -25,7 +27,7 @@ fun AccountScreenCompose(
 ) = Scaffold(
     modifier = modifier,
     topBar = { TopBar(onNavigateUp = uiState.onNavigateUp) },
-    snackbarHost = { SnackbarHost(hostState = snackbarHostState)}
+    snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
 ) {
     Content(
         modifier = Modifier.padding(it),
@@ -68,13 +70,28 @@ private fun SignInState(
     modifier: Modifier = Modifier,
     uiState: AccountUiState.SignInState
 ) = Column(modifier = modifier) {
-    Text(text = uiState.displayName)
-    Text(
-        modifier = Modifier.clickable(
-            onClickLabel = stringResource(id = StringResource.sign_out),
-            onClick = uiState.onSignOut
-        ),
-        text = stringResource(id = StringResource.sign_out)
+    Card(
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Column(
+            modifier = Modifier.padding(8.dp)
+        ) {
+            uiState.name?.let {
+                Text(
+                    text = it,
+                    style = DiaryTypography3.typography.titleLarge
+                )
+            }
+            uiState.email?.let {
+                Text(text = it)
+            }
+        }
+    }
+
+    MoreText(
+        icon = { LogoutIcon() },
+        text = stringResource(id = StringResource.sign_out),
+        onClick = uiState.onSignOut
     )
 }
 
@@ -82,19 +99,12 @@ private fun SignInState(
 private fun SignOutState(
     modifier: Modifier = Modifier,
     uiState: AccountUiState.SignOutState
-) = Box(
-    modifier = modifier
-        .fillMaxWidth()
-        .clickable(
-            onClickLabel = stringResource(id = StringResource.sign_in),
-            onClick = uiState.onSignIn
-        )
-) {
-    Text(
-        modifier = Modifier.padding(12.dp),
-        text = stringResource(id = StringResource.sign_in)
-    )
-}
+) = MoreText(
+    modifier = modifier,
+    icon = { LoginIcon() },
+    text = stringResource(id = StringResource.sign_in),
+    onClick = uiState.onSignIn
+)
 
 @Preview
 @Composable

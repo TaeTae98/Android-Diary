@@ -34,7 +34,8 @@ class AccountViewModel @Inject constructor(
         when (it) {
             is DiaryAccount.User -> AccountUiState.SignInState(
                 onNavigateUp = ::navigateUp,
-                displayName = it.displayName,
+                name = it.name,
+                email = it.email,
                 onSignOut = ::signOut
             )
             is DiaryAccount.Guest -> AccountUiState.SignOutState(

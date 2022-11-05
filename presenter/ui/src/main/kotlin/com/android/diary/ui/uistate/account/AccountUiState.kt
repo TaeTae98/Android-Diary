@@ -5,7 +5,8 @@ sealed interface AccountUiState {
 
     data class SignInState(
         override val onNavigateUp: () -> Unit = {},
-        val displayName: String = "",
+        val name: String? = null,
+        val email: String? = null,
         val onSignOut: () -> Unit = {}
     ) : AccountUiState
 

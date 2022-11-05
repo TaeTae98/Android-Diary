@@ -3,7 +3,7 @@ package com.diary.android.presenter.memo.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.diary.domain.model.Id
-import com.android.diary.domain.usecase.memo.DeleteMemoByIdUseCase
+import com.android.diary.domain.usecase.memo.DeleteMemoUseCase
 import com.android.diary.domain.usecase.memo.PagingMemoUseCase
 import com.android.diary.domain.utils.mapPaging
 import com.android.diary.ui.uistate.memo.MemoListUiState
@@ -20,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MemoListViewModel @Inject constructor(
     pagingMemoUseCase: PagingMemoUseCase,
-    private val deleteMemoByIdUseCase: DeleteMemoByIdUseCase
+    private val deleteMemoUseCase: DeleteMemoUseCase
 ) : ViewModel() {
     private val _action = MutableSharedFlow<MemoListAction>()
     val action = _action.asSharedFlow()
@@ -57,6 +57,6 @@ class MemoListViewModel @Inject constructor(
     private fun delete(
         id: String = UUID.randomUUID().toString()
     ) = viewModelScope.launch {
-        deleteMemoByIdUseCase(Id(id))
+        deleteMemoUseCase(Id(id))
     }
 }

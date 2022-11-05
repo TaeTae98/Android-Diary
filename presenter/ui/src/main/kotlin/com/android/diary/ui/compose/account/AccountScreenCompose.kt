@@ -11,8 +11,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.android.diary.share.StringResource
 import com.android.diary.ui.compose.core.button.NavigateUpButton
+import com.android.diary.ui.compose.core.icon.DownloadIcon
 import com.android.diary.ui.compose.core.icon.LoginIcon
 import com.android.diary.ui.compose.core.icon.LogoutIcon
+import com.android.diary.ui.compose.core.icon.MigrationDataIcon
 import com.android.diary.ui.compose.more.MoreText
 import com.android.diary.ui.theme.DiaryDimen
 import com.android.diary.ui.theme.DiaryTypography3
@@ -70,29 +72,48 @@ private fun SignInState(
     modifier: Modifier = Modifier,
     uiState: AccountUiState.SignInState
 ) = Column(modifier = modifier) {
-    Card(
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Column(
-            modifier = Modifier.padding(DiaryDimen.DEFAULT_CONTENT_PADDING)
-        ) {
-            uiState.name?.let {
-                Text(
-                    text = it,
-                    style = DiaryTypography3.typography.titleLarge
-                )
-            }
-            uiState.email?.let {
-                Text(text = it)
-            }
-        }
-    }
+    Profile(name = uiState.name, email = uiState.email)
+
+    MoreText(
+        icon = { DownloadIcon() },
+        text = stringResource(id = StringResource.download),
+        onClick = uiState.onDownload,
+    )
+
+    MoreText(
+        icon = { MigrationDataIcon() },
+        text = stringResource(id = StringResource.migration),
+        onClick = uiState.onMigration
+    )
 
     MoreText(
         icon = { LogoutIcon() },
         text = stringResource(id = StringResource.sign_out),
         onClick = uiState.onSignOut
     )
+}
+
+@Composable
+private fun Profile(
+    modifier: Modifier = Modifier,
+    name: String?,
+    email: String?
+) = Card(
+    modifier = modifier.fillMaxWidth()
+) {
+    Column(
+        modifier = Modifier.padding(DiaryDimen.DEFAULT_CONTENT_PADDING)
+    ) {
+        name?.let {
+            Text(
+                text = it,
+                style = DiaryTypography3.typography.titleLarge
+            )
+        }
+        email?.let {
+            Text(text = it)
+        }
+    }
 }
 
 @Composable

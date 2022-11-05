@@ -4,10 +4,12 @@ import com.android.diary.domain.model.DiaryAccount
 import com.google.firebase.auth.FirebaseUser
 
 sealed interface DiaryAccountEntity {
+    val id: String?
+
     fun toDomain(): DiaryAccount
 
     data class User(
-        val id: String = "",
+        override val id: String = "",
         val name: String? = null,
         val email: String? = null,
     ) : DiaryAccountEntity {
@@ -18,12 +20,15 @@ sealed interface DiaryAccountEntity {
         )
 
         override fun toDomain() = DiaryAccount.User(
+            id = id,
             name = name,
             email = email
         )
     }
 
     object Guest : DiaryAccountEntity {
+        override val id: String? = null
+
         override fun toDomain() = DiaryAccount.Guest
     }
 

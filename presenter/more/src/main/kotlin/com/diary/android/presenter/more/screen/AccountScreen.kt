@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.android.diary.share.StringResource
 import com.android.diary.share.oauth.GoogleOAuthRequest
 import com.android.diary.share.oauth.GoogleOAuthResult
 import com.android.diary.share.show
@@ -58,6 +59,9 @@ fun AccountScreen(
                     request = it.request,
                     onOneTapSign = oneTapSign::launch,
                     onSignIn = sign::launch
+                )
+                is AccountAction.Migration -> snackbarHostState.show(
+                    message = context.getString(StringResource.finish)
                 )
                 is AccountAction.Failure -> snackbarHostState.show(
                     context = context,

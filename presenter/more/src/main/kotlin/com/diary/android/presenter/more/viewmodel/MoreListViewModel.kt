@@ -22,16 +22,11 @@ class MoreListViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(
         MoreListUiState(
             onAccount = ::account,
-            onBackup = ::backup
         )
     )
     val uiState = _uiState.asStateFlow()
 
     private fun account() = viewModelScope.launch {
         _action.emit(MoreListAction.Account)
-    }
-
-    private fun backup() = viewModelScope.launch {
-        _action.emit(MoreListAction.Backup)
     }
 }

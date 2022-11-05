@@ -4,6 +4,7 @@ import com.android.diary.share.oauth.GoogleOAuthRequest
 
 sealed interface AccountAction {
     object NavigateUp : AccountAction
+    object Migration : AccountAction
 
     data class GoogleSignIn(val request: GoogleOAuthRequest) : AccountAction
     data class Failure(val throwable: Throwable) : AccountAction

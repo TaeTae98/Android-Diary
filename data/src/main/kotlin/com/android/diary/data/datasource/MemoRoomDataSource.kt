@@ -14,6 +14,9 @@ interface MemoRoomDataSource : BaseDao<MemoEntity> {
     @Query("DELETE FROM MemoEntity WHERE id = :id")
     suspend fun deleteById(id: String): Int
 
-    @Query("SELECT * FROM MemoEntity")
-    fun pagingAll(): PagingSource<Int, MemoEntity>
+    @Query("UPDATE MemoEntity SET userId = :userId WHERE userId IS NULL")
+    suspend fun migration(userId: String?): Int
+
+    @Query("SELECT * FROM MemoEntity WHERE userId IS :userId")
+    fun pagingByUserId(userId: String?): PagingSource<Int, MemoEntity>
 }

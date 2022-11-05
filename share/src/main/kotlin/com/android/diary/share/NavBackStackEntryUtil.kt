@@ -9,5 +9,5 @@ fun NavBackStackEntry.isSelected(
 ) = destination.hierarchy.any { it.route == route }
 
 fun NavBackStackEntry.isMainBottomBarVisible() = destination.route in arrayOf(
-    DeepLink.MEMO_LIST, "payment", "tag", "file", "more"
+    DeepLink.MEMO_LIST, "payment", "tag", "file", DeepLink.MORE_LIST
 )

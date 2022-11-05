@@ -1,19 +1,17 @@
-package com.android.diary.domain.usecase.memo
+package com.android.diary.domain.usecase.data
 
 import com.android.diary.domain.model.DiaryAccount
-import com.android.diary.domain.model.Memo
 import com.android.diary.domain.repository.MemoRepository
 import com.android.diary.domain.usecase.core.SuspendUseCase
 import javax.inject.Inject
 
-class MemoUpsertUseCase @Inject constructor(
+class MigrationDataUseCase @Inject constructor(
     private val memoRepository: MemoRepository
-) : SuspendUseCase<Memo, Unit>() {
+) : SuspendUseCase<Unit, Unit>() {
     override suspend fun execute(
         account: DiaryAccount,
-        parameter: Memo
-    ) = memoRepository.upsert(
-        userId = account.id,
-        memo = parameter
-    )
+        parameter: Unit
+    ) {
+        memoRepository.migration(account.id)
+    }
 }

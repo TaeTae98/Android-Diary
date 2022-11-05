@@ -9,11 +9,14 @@ import java.util.*
 data class MemoEntity(
     @PrimaryKey
     val id: String = UUID.randomUUID().toString(),
+    val userId: String? = null,
     val title: String = "",
     val description: String = "",
+    val updatedAt: Long = System.currentTimeMillis(),
 ) {
-    constructor(memo: Memo) : this(
+    constructor(memo: Memo, userId: String?) : this(
         id = memo.id,
+        userId = userId,
         title = memo.title,
         description = memo.description
     )

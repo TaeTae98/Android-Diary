@@ -7,6 +7,8 @@ sealed interface AccountUiState {
         override val onNavigateUp: () -> Unit = {},
         val name: String? = null,
         val email: String? = null,
+        val onDownload: () -> Unit = {},
+        val onMigration: () -> Unit = {},
         val onSignOut: () -> Unit = {}
     ) : AccountUiState
 

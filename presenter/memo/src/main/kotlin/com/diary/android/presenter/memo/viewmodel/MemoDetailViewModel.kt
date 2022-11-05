@@ -7,7 +7,7 @@ import com.android.diary.domain.constant.Const
 import com.android.diary.domain.constant.Parameter
 import com.android.diary.domain.model.Id
 import com.android.diary.domain.model.Memo
-import com.android.diary.domain.usecase.memo.FindMemoByIdUseCase
+import com.android.diary.domain.usecase.memo.FindMemoUseCase
 import com.android.diary.domain.usecase.memo.MemoUpsertUseCase
 import com.android.diary.domain.utils.onFalse
 import com.android.diary.domain.utils.onNullOrFalse
@@ -24,7 +24,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MemoDetailViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    private val findMemoByIdUseCase: FindMemoByIdUseCase,
+    private val findMemoUseCase: FindMemoUseCase,
     private val memoUpsertUseCase: MemoUpsertUseCase,
 ) : ViewModel() {
     private val _action = MutableSharedFlow<MemoDetailAction>()
@@ -127,7 +127,7 @@ class MemoDetailViewModel @Inject constructor(
     init {
         savedStateHandle.get<Boolean>(Parameter.IS_INITIALIZED).onNullOrFalse {
             viewModelScope.launch {
-                findMemoByIdUseCase(Id(id.value)).getOrNull()?.let { memo ->
+                findMemoUseCase(Id(id.value)).getOrNull()?.let { memo ->
                     setTitle(memo.title)
                     setDescription(memo.description)
                     savedStateHandle[Parameter.IS_INITIALIZED] = true

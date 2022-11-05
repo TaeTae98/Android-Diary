@@ -6,7 +6,7 @@ import androidx.paging.map
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-const val DEFAULT_PAGING_SIZE = 25
+const val DEFAULT_PAGING_SIZE = 75
 
 fun <T : Any, R : Any> PagingData<T>.mapPaging(transform: suspend (T) -> R) = map(transform)
 

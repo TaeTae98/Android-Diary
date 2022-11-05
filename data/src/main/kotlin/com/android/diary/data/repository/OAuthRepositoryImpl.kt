@@ -5,7 +5,9 @@ import com.android.diary.data.entity.DiaryAccountEntity
 import com.android.diary.domain.repository.OAuthRepository
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class OAuthRepositoryImpl @Inject constructor(
     private val oAuthDataSource: OAuthDataSource,
 ) : OAuthRepository {

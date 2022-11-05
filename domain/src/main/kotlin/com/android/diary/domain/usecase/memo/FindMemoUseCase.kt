@@ -2,7 +2,7 @@ package com.android.diary.domain.usecase.memo
 
 import com.android.diary.domain.model.DiaryAccount
 import com.android.diary.domain.model.Id
-import com.android.diary.domain.model.Memo
+import com.android.diary.domain.model.memo.Memo
 import com.android.diary.domain.repository.MemoRepository
 import com.android.diary.domain.usecase.core.SuspendUseCase
 import javax.inject.Inject

@@ -4,14 +4,14 @@ import com.android.diary.data.room.DiaryRoomDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
-import dagger.hilt.android.scopes.ViewModelScoped
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @Module
-@InstallIn(ViewModelComponent::class)
-class DataSourceViewModelProvidesModule {
+@InstallIn(SingletonComponent::class)
+class DataSourceSingletonProvidesModule {
     @Provides
-    @ViewModelScoped
+    @Singleton
     fun providesMemoRoomDataSource(
         diaryRoomDatabase: DiaryRoomDatabase
     ) = diaryRoomDatabase.memoRoomDataSource()

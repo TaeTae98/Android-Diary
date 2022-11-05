@@ -74,16 +74,22 @@ android {
 dependencies {
     implementation(project(":data"))
     implementation(project(":domain"))
+    implementation(project(":share"))
     implementation(project(":presenter:main"))
 
     implementation("com.google.dagger:hilt-android:2.42")
     kapt("com.google.dagger:hilt-android-compiler:2.42")
 
     implementation("androidx.core:core-splashscreen:1.0.0")
+
     implementation("com.google.android.material:material:1.7.0")
 
     implementation(platform("com.google.firebase:firebase-bom:31.0.2"))
     implementation("com.google.firebase:firebase-analytics-ktx")
+
+    implementation("androidx.startup:startup-runtime:1.1.1")
+
+    implementation("androidx.lifecycle:lifecycle-process:2.5.1")
 }
 
 kapt {

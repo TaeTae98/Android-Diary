@@ -7,4 +7,7 @@ import androidx.room.Upsert
 interface BaseDao<T : Any> {
     @Upsert
     suspend fun upsert(entity: T)
+
+    @Upsert
+    suspend fun upsert(entities: Collection<T>)
 }

@@ -8,10 +8,19 @@ import javax.inject.Inject
 class MigrationDataUseCase @Inject constructor(
     private val memoRepository: MemoRepository
 ) : SuspendUseCase<Unit, Unit>() {
-    override suspend fun execute(
-        account: DiaryAccount,
-        parameter: Unit
-    ) {
-        memoRepository.migration(account.id)
+    override suspend fun execute(account: DiaryAccount, parameter: Unit) {
+        val userId = account.id ?: return
+        migrationMemo(userId)
+    }
+
+    private suspend fun migrationMemo(userId: String) {
+        while (true) {
+            val data = memoRepository.findMigrationData()
+            if (data.isEmpty()) {
+                break
+            }
+
+            memoRepository.upsert(data, userId)
+        }
     }
 }

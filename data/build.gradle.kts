@@ -33,4 +33,6 @@ dependencies {
     kapt("androidx.room:room-compiler:2.5.0-beta01")
 
     implementation("androidx.paging:paging-runtime:3.1.1")
+
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
 }

@@ -7,7 +7,6 @@ import com.android.diary.domain.model.IdToken
 import com.android.diary.domain.usecase.account.GetDiaryAccountUseCase
 import com.android.diary.domain.usecase.account.SignInUseCase
 import com.android.diary.domain.usecase.account.SignOutUseCase
-import com.android.diary.domain.usecase.data.DownloadDataUseCase
 import com.android.diary.domain.usecase.data.MigrationDataUseCase
 import com.android.diary.share.oauth.GoogleOAuth
 import com.android.diary.share.oauth.GoogleOAuthResult
@@ -22,7 +21,6 @@ import javax.inject.Inject
 class AccountViewModel @Inject constructor(
     private val googleOAuth: GoogleOAuth,
     private val signInUseCase: SignInUseCase,
-    private val downloadDataUseCase: DownloadDataUseCase,
     private val migrationDataUseCase: MigrationDataUseCase,
     private val signOutUseCase: SignOutUseCase,
     getDiaryAccountUseCase: GetDiaryAccountUseCase,
@@ -40,7 +38,6 @@ class AccountViewModel @Inject constructor(
                 onNavigateUp = ::navigateUp,
                 name = it.name,
                 email = it.email,
-                onDownload = ::download,
                 onMigration = ::migration,
                 onSignOut = ::signOut
             )
@@ -74,12 +71,6 @@ class AccountViewModel @Inject constructor(
         IdToken(token = idToken)
     ).onFailure {
         _action.emit(AccountAction.Failure(it))
-    }
-
-    private fun download() = viewModelScope.launch {
-        downloadDataUseCase(Unit).onFailure {
-            _action.emit(AccountAction.Failure(it))
-        }
     }
 
     private fun migration() = viewModelScope.launch {

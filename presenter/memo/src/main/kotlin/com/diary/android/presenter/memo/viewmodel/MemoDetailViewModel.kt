@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.android.diary.domain.constant.Const
 import com.android.diary.domain.constant.Parameter
 import com.android.diary.domain.model.Id
-import com.android.diary.domain.model.Memo
+import com.android.diary.domain.model.memo.Memo
 import com.android.diary.domain.usecase.memo.FindMemoUseCase
 import com.android.diary.domain.usecase.memo.MemoUpsertUseCase
 import com.android.diary.domain.utils.onFalse

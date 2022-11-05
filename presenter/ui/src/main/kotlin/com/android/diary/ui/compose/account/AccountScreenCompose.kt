@@ -11,7 +11,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.android.diary.share.StringResource
 import com.android.diary.ui.compose.core.button.NavigateUpButton
-import com.android.diary.ui.compose.core.icon.DownloadIcon
 import com.android.diary.ui.compose.core.icon.LoginIcon
 import com.android.diary.ui.compose.core.icon.LogoutIcon
 import com.android.diary.ui.compose.core.icon.MigrationDataIcon
@@ -73,12 +72,6 @@ private fun SignInState(
     uiState: AccountUiState.SignInState
 ) = Column(modifier = modifier) {
     Profile(name = uiState.name, email = uiState.email)
-
-    MoreText(
-        icon = { DownloadIcon() },
-        text = stringResource(id = StringResource.download),
-        onClick = uiState.onDownload,
-    )
 
     MoreText(
         icon = { MigrationDataIcon() },

@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class DeleteMemoUseCase @Inject constructor(
     private val memoRepository: MemoRepository
-) : SuspendUseCase<Id, Int>() {
+) : SuspendUseCase<Id, Unit>() {
     override suspend fun execute(
         account: DiaryAccount,
         parameter: Id

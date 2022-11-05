@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.android.diary.share.navigateToAccount
+import com.android.diary.share.navigateToBackup
 import com.android.diary.ui.compose.more.MoreListScreenCompose
 import com.diary.android.presenter.more.action.MoreListAction
 import com.diary.android.presenter.more.viewmodel.MoreListViewModel
@@ -25,6 +26,7 @@ fun MoreListScreen(
         moreListViewModel.action.collectLatest {
             when(it) {
                 MoreListAction.Account -> navController.navigateToAccount()
+                MoreListAction.Backup -> navController.navigateToBackup()
             }
         }
     }

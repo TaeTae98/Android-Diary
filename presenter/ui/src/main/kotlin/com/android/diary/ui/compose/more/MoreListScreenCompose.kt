@@ -8,6 +8,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.android.diary.share.StringResource
 import com.android.diary.ui.compose.core.icon.AccountIcon
+import com.android.diary.ui.compose.core.icon.BackupIcon
 import com.android.diary.ui.uistate.more.MoreListUiState
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -47,6 +48,11 @@ private fun Content(
         icon = { AccountIcon() },
         text = stringResource(id = StringResource.account),
         onClick = uiState.onAccount
+    )
+    MoreText(
+        icon = { BackupIcon()},
+        text = stringResource(id = StringResource.backup),
+        onClick = uiState.onBackup
     )
 }
 

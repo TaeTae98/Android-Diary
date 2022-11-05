@@ -2,8 +2,8 @@ package com.diary.android.presenter.more.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.android.diary.domain.model.AccountType
 import com.android.diary.domain.model.DiaryAccount
+import com.android.diary.domain.model.IdToken
 import com.android.diary.domain.usecase.account.GetDiaryAccountUseCase
 import com.android.diary.domain.usecase.account.SignInUseCase
 import com.android.diary.domain.usecase.account.SignOutUseCase
@@ -65,10 +65,7 @@ class AccountViewModel @Inject constructor(
     }
 
     private suspend fun signIn(idToken: String?) = signInUseCase(
-        SignInUseCase.Params(
-            idToken = idToken,
-            type = AccountType.GOOGLE
-        )
+        IdToken(token = idToken)
     ).onFailure {
         _action.emit(AccountAction.Failure(it))
     }

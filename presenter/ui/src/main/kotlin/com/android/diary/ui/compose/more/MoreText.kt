@@ -10,7 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import com.android.diary.ui.theme.DiaryDimen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -25,8 +25,8 @@ fun MoreText(
 ) {
     Row(
         modifier = Modifier
-            .padding(8.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
+            .padding(DiaryDimen.DEFAULT_CONTENT_PADDING),
+        horizontalArrangement = Arrangement.spacedBy(DiaryDimen.DEFAULT_CONTENT_PADDING),
         verticalAlignment = Alignment.CenterVertically
     ) {
         icon()

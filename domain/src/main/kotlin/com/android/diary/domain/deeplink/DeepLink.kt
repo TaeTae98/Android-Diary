@@ -17,6 +17,7 @@ object DeepLink {
     val MORE = MORE_BUILDER.build()
     val MORE_LIST = MORE_BUILDER.addPath("list").build()
     val ACCOUNT = MORE_BUILDER.addPath("account").build()
+    val BACKUP = MORE_BUILDER.addPath("backup").build()
 
     fun getMemoDetailLink(id: Long = 0L) = MEMO_DETAIL_BUILDER.addPath(id).build()
 }

@@ -5,7 +5,7 @@ plugins {
     id("hilt-core")
     id("navigation")
     id("compose")
-    id("firebase")
+    id("firebase-oauth")
 }
 
 android {
@@ -13,7 +13,6 @@ android {
 
     defaultConfig {
         buildConfigField(type = "String", name = "GOOGLE_OAUTH_CLIENT_ID", value = "\"${localProperty("DEBUG_GOOGLE_OAUTH_CLIENT_ID")}\"")
-        buildConfigField(type = "String", name = "HI", value = "\"${localProperty("HI")}\"")
     }
 }
 

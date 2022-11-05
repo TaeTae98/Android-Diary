@@ -6,7 +6,5 @@ sealed interface DiaryAccount {
     data class User(
         val name: String?,
         val email: String?,
-    ) : DiaryAccount {
-        val displayName = name ?: email.orEmpty()
-    }
+    ) : DiaryAccount
 }

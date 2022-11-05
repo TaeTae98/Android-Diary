@@ -8,3 +8,4 @@ fun NavController.navigateToMemoDetail(
 ) = navigate(DeepLink.getMemoDetailLink(id = id))
 
 fun NavController.navigateToAccount() = navigate(DeepLink.ACCOUNT)
+fun NavController.navigateToBackup() = navigate(DeepLink.BACKUP)

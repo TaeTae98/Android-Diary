@@ -5,6 +5,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import com.android.diary.domain.deeplink.DeepLink
 import com.diary.android.presenter.more.screen.AccountScreen
+import com.diary.android.presenter.more.screen.BackupScreen
 import com.diary.android.presenter.more.screen.MoreListScreen
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.navigation
@@ -22,5 +23,9 @@ fun NavGraphBuilder.moreGraph(
 
     composable(route = DeepLink.ACCOUNT) {
         AccountScreen(navController = navController)
+    }
+
+    composable(route = DeepLink.BACKUP) {
+        BackupScreen(navController = navController)
     }
 }

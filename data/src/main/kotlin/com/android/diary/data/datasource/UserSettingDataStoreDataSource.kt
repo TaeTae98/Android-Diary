@@ -1,4 +1,4 @@
-package com.android.diary.data.repository
+package com.android.diary.data.datasource
 
 import android.content.Context
 import androidx.datastore.core.DataStore
@@ -7,24 +7,21 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.preferencesDataStoreFile
-import com.android.diary.domain.repository.UserSettingRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class UserSettingRepositoryImpl @Inject constructor(
+class UserSettingDataStoreDataSource @Inject constructor(
     @ApplicationContext
     private val context: Context
-) : UserSettingRepository {
+) {
     private val dataStoreMap = HashMap<String, DataStore<Preferences>>()
 
-    override fun getMemoLastUpdatedAt(userId: String?) = getDataStore(userId).data.map {
+    fun getMemoLastUpdatedAt(userId: String?) = getDataStore(userId).data.map {
         it[MEMO_LAST_UPDATED_AT_KEY] ?: 0L
     }
 
-    override suspend fun setMemoLastUpdatedAt(userId: String?, updatedAt: Long) {
+    suspend fun setMemoLastUpdatedAt(userId: String?, updatedAt: Long) {
         getDataStore(userId).edit {
             it[MEMO_LAST_UPDATED_AT_KEY] = updatedAt
         }

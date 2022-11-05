@@ -2,12 +2,12 @@ package com.android.diary.share.oauth
 
 import android.content.Intent
 
-sealed class GoogleOAuthResult {
+sealed interface GoogleOAuthResult {
     data class OneTapSign(
         val intent: Intent?
-    ) : GoogleOAuthResult()
+    ) : GoogleOAuthResult
 
     data class Sign(
         val intent: Intent?
-    ) : GoogleOAuthResult()
+    ) : GoogleOAuthResult
 }

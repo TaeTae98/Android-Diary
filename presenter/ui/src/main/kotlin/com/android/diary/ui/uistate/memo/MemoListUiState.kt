@@ -1,7 +1,7 @@
 package com.android.diary.ui.uistate.memo
 
-sealed class MemoListUiState {
+sealed interface MemoListUiState {
     data class List(
         val onAdd: () -> Unit = {}
-    ) : MemoListUiState()
+    ) : MemoListUiState
 }

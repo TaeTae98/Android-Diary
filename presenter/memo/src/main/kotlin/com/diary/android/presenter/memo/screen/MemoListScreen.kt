@@ -32,7 +32,10 @@ fun MemoListScreen(
     LaunchedEffect(memoListViewModel) {
         memoListViewModel.action.collectLatest {
             when (it) {
-                is MemoListAction.NavigateToDetail -> navController.navigateToMemoDetail(it.id)
+                is MemoListAction.NavigateToDetail -> navController.navigateToMemoDetail(
+                    id = it.id,
+                    isNew = it.isNew
+                )
                 is MemoListAction.Failure -> snackbarHostState.show(
                     context = context,
                     throwable = it.throwable

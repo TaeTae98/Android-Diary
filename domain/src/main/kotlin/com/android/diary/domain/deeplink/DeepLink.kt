@@ -1,6 +1,7 @@
 package com.android.diary.domain.deeplink
 
 import com.android.diary.domain.constant.Parameter
+import java.util.*
 
 object DeepLink {
     private val APP = DeepLinkBuilder(scheme = "diary")
@@ -11,7 +12,10 @@ object DeepLink {
     val MEMO_LIST = MEMO_BUILDER.addPath("list").build()
 
     private val MEMO_DETAIL_BUILDER = MEMO_BUILDER.addPath("detail")
-    val MEMO_DETAIL = MEMO_DETAIL_BUILDER.addPath("{${Parameter.ID}}").build()
+    val MEMO_DETAIL = MEMO_DETAIL_BUILDER
+        .addPath("{${Parameter.ID}}")
+        .putQuery(Parameter.IS_NEW, "{${Parameter.IS_NEW}}")
+        .build()
 
     private val MORE_BUILDER = APP.setHost("more")
     val MORE = MORE_BUILDER.build()
@@ -19,5 +23,11 @@ object DeepLink {
     val ACCOUNT = MORE_BUILDER.addPath("account").build()
     val BACKUP = MORE_BUILDER.addPath("backup").build()
 
-    fun getMemoDetailLink(id: Long = 0L) = MEMO_DETAIL_BUILDER.addPath(id).build()
+    fun getMemoDetailLink(
+        id: String = UUID.randomUUID().toString(),
+        isNew: Boolean = true
+    ) = MEMO_DETAIL_BUILDER
+        .addPath(id)
+        .putQuery(Parameter.IS_NEW, isNew)
+        .build()
 }

@@ -1,8 +1,9 @@
 package com.android.diary.domain.constant
 
 object Parameter {
-    const val INITIALIZED = "initialized"
+    const val IS_INITIALIZED = "isInitialized"
 
+    const val IS_NEW = "isNew"
     const val ID = "id"
     const val TITLE = "title"
     const val DESCRIPTION = "description"

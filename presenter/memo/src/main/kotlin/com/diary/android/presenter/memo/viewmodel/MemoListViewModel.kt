@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,7 +26,7 @@ class MemoListViewModel @Inject constructor(
     val action = _action.asSharedFlow()
 
     val uiState = MemoListUiState.List(
-        onAdd = ::detail
+        onAdd = ::add
     )
 
     val memoUiState = pagingMemoUseCase(Unit).onFailure {
@@ -39,11 +40,23 @@ class MemoListViewModel @Inject constructor(
         )
     }
 
-    private fun detail(id: Long = 0L) = viewModelScope.launch {
-        _action.emit(MemoListAction.NavigateToDetail(id))
+    private fun add(
+        id: String = UUID.randomUUID().toString(),
+        isNew: Boolean = true,
+    ) = viewModelScope.launch {
+        _action.emit(MemoListAction.NavigateToDetail(id = id, isNew = isNew))
     }
 
-    private fun delete(id: Long = 0L) = viewModelScope.launch {
+    private fun detail(
+        id: String = UUID.randomUUID().toString(),
+        isNew: Boolean = false,
+    ) = viewModelScope.launch {
+        _action.emit(MemoListAction.NavigateToDetail(id = id, isNew = isNew))
+    }
+
+    private fun delete(
+        id: String = UUID.randomUUID().toString()
+    ) = viewModelScope.launch {
         deleteMemoByIdUseCase(Id(id))
     }
 }

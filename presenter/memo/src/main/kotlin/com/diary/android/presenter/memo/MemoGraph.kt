@@ -5,12 +5,14 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
-import com.android.diary.domain.deeplink.DeepLink
+import com.android.diary.domain.constant.Const
 import com.android.diary.domain.constant.Parameter
+import com.android.diary.domain.deeplink.DeepLink
 import com.diary.android.presenter.memo.screen.MemoDetailScreen
 import com.diary.android.presenter.memo.screen.MemoListScreen
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.navigation
+import java.util.*
 
 @OptIn(ExperimentalAnimationApi::class)
 fun NavGraphBuilder.memoGraph(
@@ -27,7 +29,14 @@ fun NavGraphBuilder.memoGraph(
         route = DeepLink.MEMO_DETAIL,
         arguments = listOf(
             navArgument(name = Parameter.ID) {
-                type = NavType.LongType
+                type = NavType.StringType
+                nullable = false
+                defaultValue = Const.INVALID_UUID
+            },
+            navArgument(name = Parameter.IS_NEW) {
+                type = NavType.BoolType
+                nullable = false
+                defaultValue = true
             }
         )
     ) {

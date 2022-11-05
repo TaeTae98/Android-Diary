@@ -3,11 +3,12 @@ package com.android.diary.data.entity
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.android.diary.domain.model.Memo
+import java.util.*
 
 @Entity
 data class MemoEntity(
-    @PrimaryKey(autoGenerate = true)
-    val id: Long = 0L,
+    @PrimaryKey
+    val id: String = UUID.randomUUID().toString(),
     val title: String = "",
     val description: String = "",
 ) {

@@ -3,6 +3,7 @@ package com.diary.android.presenter.memo.viewmodel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.android.diary.domain.constant.Const
 import com.android.diary.domain.constant.Parameter
 import com.android.diary.domain.model.Id
 import com.android.diary.domain.model.Memo
@@ -10,12 +11,14 @@ import com.android.diary.domain.usecase.memo.FindMemoByIdUseCase
 import com.android.diary.domain.usecase.memo.MemoUpsertUseCase
 import com.android.diary.domain.utils.onFalse
 import com.android.diary.domain.utils.onNullOrFalse
+import com.android.diary.domain.utils.onTrue
 import com.android.diary.ui.uistate.core.TextInputUiState
 import com.android.diary.ui.uistate.memo.MemoDetailUiState
 import com.diary.android.presenter.memo.action.MemoDetailAction
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,15 +32,18 @@ class MemoDetailViewModel @Inject constructor(
 
     private val id = savedStateHandle.getStateFlow(
         key = Parameter.ID,
-        initialValue = 0L
-    )
-
-    private val isDetailMode = id.map {
-        it != 0L
+        initialValue = UUID.randomUUID().toString()
+    ).map { id ->
+        id.takeIf { it != Const.INVALID_UUID } ?: UUID.randomUUID().toString()
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.Eagerly,
-        initialValue = id.value != 0L
+        initialValue = UUID.randomUUID().toString()
+    )
+
+    private val isNew = savedStateHandle.getStateFlow(
+        key = Parameter.IS_NEW,
+        initialValue = true
     )
 
     private val title = savedStateHandle.getStateFlow(
@@ -81,64 +87,66 @@ class MemoDetailViewModel @Inject constructor(
     )
 
     val uiState = combine(
-        isDetailMode,
+        isNew,
         titleUiState,
         descriptionUiState
-    ) { isDetailMode, titleUiState, descriptionUiState ->
-        if (isDetailMode) {
-            MemoDetailUiState.Detail(
-                onNavigateUp = ::navigateUp,
-                titleUiState = titleUiState,
-                descriptionUiState = descriptionUiState,
-            )
-        } else {
+    ) { isNew, titleUiState, descriptionUiState ->
+        if (isNew) {
             MemoDetailUiState.Add(
                 onNavigateUp = ::navigateUp,
                 titleUiState = titleUiState,
                 descriptionUiState = descriptionUiState,
                 onAdd = ::upsert
+            )
+        } else {
+            MemoDetailUiState.Detail(
+                onNavigateUp = ::navigateUp,
+                titleUiState = titleUiState,
+                descriptionUiState = descriptionUiState,
             )
         }
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.Eagerly,
-        initialValue = if (isDetailMode.value) {
-            MemoDetailUiState.Detail(
-                onNavigateUp = ::navigateUp,
-                titleUiState = titleUiState.value,
-                descriptionUiState = descriptionUiState.value,
-            )
-        } else {
+        initialValue = if (isNew.value) {
             MemoDetailUiState.Add(
                 onNavigateUp = ::navigateUp,
                 titleUiState = titleUiState.value,
                 descriptionUiState = descriptionUiState.value,
                 onAdd = ::upsert
             )
+        } else {
+            MemoDetailUiState.Detail(
+                onNavigateUp = ::navigateUp,
+                titleUiState = titleUiState.value,
+                descriptionUiState = descriptionUiState.value,
+            )
         }
     )
 
     init {
-        savedStateHandle.get<Boolean>(Parameter.INITIALIZED).onNullOrFalse {
+        savedStateHandle.get<Boolean>(Parameter.IS_INITIALIZED).onNullOrFalse {
             viewModelScope.launch {
                 findMemoByIdUseCase(Id(id.value)).getOrNull()?.let { memo ->
                     setTitle(memo.title)
                     setDescription(memo.description)
-                    savedStateHandle[Parameter.INITIALIZED] = true
+                    savedStateHandle[Parameter.IS_INITIALIZED] = true
                 }
             }
         }
     }
 
     private fun navigateUp() = viewModelScope.launch {
-        if (isDetailMode.value) {
-            upsert().join()
-        }
-
+        isNew.value.onFalse { upsert().join() }
         _action.emit(MemoDetailAction.NavigateUp)
     }
 
-    private fun setTitle(title: String) = savedStateHandle.set(
+    private fun setId(id: String = UUID.randomUUID().toString()) = savedStateHandle.set(
+        key = Parameter.ID,
+        value = id
+    )
+
+    private fun setTitle(title: String = "") = savedStateHandle.set(
         key = Parameter.TITLE,
         value = title
     ).also {
@@ -147,7 +155,7 @@ class MemoDetailViewModel @Inject constructor(
         }
     }
 
-    private fun setDescription(description: String) = savedStateHandle.set(
+    private fun setDescription(description: String = "") = savedStateHandle.set(
         key = Parameter.DESCRIPTION,
         value = description
     )
@@ -162,9 +170,10 @@ class MemoDetailViewModel @Inject constructor(
         )
 
         memoUpsertUseCase(memo).onSuccess {
-            isDetailMode.value.onFalse {
-                setTitle("")
-                setDescription("")
+            isNew.value.onTrue {
+                setId()
+                setTitle()
+                setDescription()
                 _action.emit(MemoDetailAction.Add(memo.title))
             }
         }.onFailure {

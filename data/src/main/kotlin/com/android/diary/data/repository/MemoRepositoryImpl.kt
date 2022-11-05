@@ -14,8 +14,8 @@ class MemoRepositoryImpl @Inject constructor(
     private val memoRoomDataSource: MemoRoomDataSource
 ) : MemoRepository {
     override suspend fun upsert(memo: Memo) = memoRoomDataSource.upsert(MemoEntity(memo))
-    override suspend fun findById(id: Long) = memoRoomDataSource.findById(id)?.toDomain()
-    override suspend fun deleteById(id: Long) = memoRoomDataSource.deleteById(id)
+    override suspend fun findById(id: String) = memoRoomDataSource.findById(id)?.toDomain()
+    override suspend fun deleteById(id: String) = memoRoomDataSource.deleteById(id)
 
     override fun pagingAll() = Pager(
         config = PagingConfig(pageSize = DEFAULT_PAGING_SIZE),

@@ -10,9 +10,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class OAuthDataSource @Inject constructor(
-
-) {
+class OAuthDataSource @Inject constructor() {
     private val _user = MutableStateFlow(
         DiaryAccountEntity.from(FirebaseAuth.getInstance().currentUser)
     )

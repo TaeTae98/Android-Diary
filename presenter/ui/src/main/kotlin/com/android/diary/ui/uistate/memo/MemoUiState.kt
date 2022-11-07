@@ -1,6 +1,6 @@
 package com.android.diary.ui.uistate.memo
 
-import java.util.*
+import java.util.UUID
 
 sealed interface MemoUiState {
     val id: String

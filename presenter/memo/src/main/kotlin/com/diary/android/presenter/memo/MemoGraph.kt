@@ -12,7 +12,6 @@ import com.diary.android.presenter.memo.screen.MemoDetailScreen
 import com.diary.android.presenter.memo.screen.MemoListScreen
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.navigation
-import java.util.*
 
 @OptIn(ExperimentalAnimationApi::class)
 fun NavGraphBuilder.memoGraph(

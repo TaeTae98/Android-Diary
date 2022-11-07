@@ -1,6 +1,6 @@
 package com.android.diary.domain.model.memo
 
-import java.util.*
+import java.util.UUID
 
 data class Memo(
     val id: String = UUID.randomUUID().toString(),

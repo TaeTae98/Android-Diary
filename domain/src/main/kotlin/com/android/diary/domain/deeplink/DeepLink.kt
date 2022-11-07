@@ -1,7 +1,7 @@
 package com.android.diary.domain.deeplink
 
 import com.android.diary.domain.constant.Parameter
-import java.util.*
+import java.util.UUID
 
 object DeepLink {
     private val APP = DeepLinkBuilder(scheme = "diary")

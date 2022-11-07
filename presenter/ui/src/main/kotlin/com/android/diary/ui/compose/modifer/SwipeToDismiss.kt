@@ -70,5 +70,4 @@ fun Modifier.swipeToDismiss(
             orientation = orientation,
             enabled = enable
         )
-
 }

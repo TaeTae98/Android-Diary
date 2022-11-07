@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.android.diary.domain.model.memo.Memo
 import com.android.diary.domain.model.memo.MemoState
-import java.util.*
+import java.util.UUID
 
 @Entity
 data class MemoEntity(

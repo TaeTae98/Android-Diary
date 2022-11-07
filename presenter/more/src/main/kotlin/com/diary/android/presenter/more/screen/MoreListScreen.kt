@@ -23,7 +23,7 @@ fun MoreListScreen(
 ).also {
     LaunchedEffect(moreListViewModel) {
         moreListViewModel.action.collectLatest {
-            when(it) {
+            when (it) {
                 MoreListAction.Account -> navController.navigateToAccount()
             }
         }

@@ -1,6 +1,6 @@
 package com.diary.android.presenter.memo.action
 
-import java.util.*
+import java.util.UUID
 
 sealed interface MemoListAction {
     data class NavigateToDetail(

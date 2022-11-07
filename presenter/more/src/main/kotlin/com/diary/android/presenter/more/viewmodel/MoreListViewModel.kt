@@ -13,9 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MoreListViewModel @Inject constructor(
-
-) : ViewModel() {
+class MoreListViewModel @Inject constructor() : ViewModel() {
     private val _action = MutableSharedFlow<MoreListAction>()
     val action = _action.asSharedFlow()
 

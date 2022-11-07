@@ -12,9 +12,7 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class MemoRemoteDataSource @Inject constructor(
-
-) {
+class MemoRemoteDataSource @Inject constructor() {
     private val database: FirebaseFirestore
         get() = Firebase.firestore
 

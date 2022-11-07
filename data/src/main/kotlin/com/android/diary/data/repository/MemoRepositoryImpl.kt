@@ -64,7 +64,6 @@ class MemoRepositoryImpl @Inject constructor(
         memoRemoteDataSource.deleteById(id)
     }
 
-
     override fun pagingAll() = Pager(
         config = PagingConfig(pageSize = DEFAULT_PAGING_SIZE),
         initialKey = null,

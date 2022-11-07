@@ -14,4 +14,6 @@ fun <T : Any, R : Any> Flow<PagingData<T>>.mapPaging(transform: suspend (T) -> R
     it.mapPaging(transform)
 }
 
-fun <T : Any, R : Any> Pager<*, T>.mapPaging(transform: suspend (T) -> R) = flow.mapPaging(transform)
+fun <T : Any, R : Any> Pager<*, T>.mapPaging(
+    transform: suspend (T) -> R
+) = flow.mapPaging(transform)

@@ -22,6 +22,6 @@ class DatabaseSingletonProvidesModule {
     ) = Room.databaseBuilder(
         context = context,
         klass = DiaryRoomDatabase::class.java,
-        name = BuildConfig.DIARY_ROOM_DATABSE_NAME
+        name = BuildConfig.DIARY_ROOM_DATABASE_NAME
     ).build()
 }

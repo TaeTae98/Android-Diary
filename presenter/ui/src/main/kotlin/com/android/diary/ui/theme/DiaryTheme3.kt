@@ -9,11 +9,4 @@ fun DiaryTheme3(content: @Composable () -> Unit) = MaterialTheme(
     shapes = DiaryShape3.shapes,
     typography = DiaryTypography3.typography,
     content = content
-).also {
-//    val systemUiController = rememberSystemUiController()
-//    val primary = DiaryColor3.primary
-//
-//    LaunchedEffect(systemUiController) {
-//        systemUiController.setStatusBarColor(primary)
-//    }
-}
+)

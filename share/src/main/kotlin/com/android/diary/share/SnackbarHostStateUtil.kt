@@ -4,8 +4,6 @@ import android.content.Context
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
-import androidx.compose.material3.SnackbarVisuals
-import kotlinx.coroutines.withTimeout
 
 suspend inline fun SnackbarHostState.show(
     message: String,

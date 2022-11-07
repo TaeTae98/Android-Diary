@@ -13,7 +13,7 @@ import com.android.diary.ui.theme.DiaryTheme3
 @Composable
 fun NavigateUpIcon(
     modifier: Modifier = Modifier,
-    contentDescription: String = stringResource(id = StringResource.add)
+    contentDescription: String = stringResource(id = StringResource.navigate_up)
 ) = Icon(
     modifier = modifier,
     imageVector = Icons.Rounded.ArrowBack,

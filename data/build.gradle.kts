@@ -16,12 +16,12 @@ android {
             }
         }
 
-        buildConfigField(type = "String", name = "DIARY_ROOM_DATABSE_NAME", value = "\"diary_room_database.db\"")
+        buildConfigField(type = "String", name = "DIARY_ROOM_DATABASE_NAME", value = "\"diary_room_database.db\"")
     }
 
     buildTypes {
         debug {
-            buildConfigField(type = "String", name = "DIARY_ROOM_DATABSE_NAME", value = "\"diary_room_database_debug.db\"")
+            buildConfigField(type = "String", name = "DIARY_ROOM_DATABASE_NAME", value = "\"diary_room_database_debug.db\"")
         }
     }
 }

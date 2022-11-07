@@ -28,7 +28,10 @@ class MemoRemoteDataSource @Inject constructor(
         .document(id)
         .update(Parameter.STATE, MemoState.DELETED)
 
-    suspend fun findSyncData(userId: String, updatedAt: Long) = withContext(Dispatchers.IO) {
+    suspend fun findSyncData(
+        userId: String,
+        updatedAt: Long
+    ): List<MemoEntity> = withContext(Dispatchers.IO) {
         database.collection(COLLECTION)
             .whereEqualTo(Parameter.USER_ID, userId)
             .whereGreaterThanOrEqualTo(Parameter.UPDATED_AT, updatedAt)
@@ -36,7 +39,7 @@ class MemoRemoteDataSource @Inject constructor(
             .limit(DEFAULT_PAGING_SIZE * 2L)
             .get()
             .await()
-            .toObjects(MemoEntity::class.java) ?: emptyList()
+            .toObjects(MemoEntity::class.java)
     }
 
     companion object {

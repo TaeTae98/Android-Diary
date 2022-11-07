@@ -2,7 +2,6 @@ package com.android.diary.ui.compose.core.input
 
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -15,7 +14,6 @@ import com.android.diary.domain.utils.isNotNull
 import com.android.diary.domain.utils.onTrue
 import com.android.diary.ui.uistate.core.TextInputUiState
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DiaryTextField(
     modifier: Modifier = Modifier,

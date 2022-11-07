@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -25,7 +24,6 @@ import com.android.diary.ui.theme.DiaryDimen
 import com.android.diary.ui.theme.DiaryTypography3
 import com.android.diary.ui.uistate.account.AccountUiState
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AccountScreenCompose(
     modifier: Modifier = Modifier,
@@ -42,7 +40,6 @@ fun AccountScreenCompose(
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun TopBar(
     modifier: Modifier = Modifier,

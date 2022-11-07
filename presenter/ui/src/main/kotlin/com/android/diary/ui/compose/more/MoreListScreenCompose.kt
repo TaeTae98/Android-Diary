@@ -2,7 +2,6 @@ package com.android.diary.ui.compose.more
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -14,7 +13,6 @@ import com.android.diary.share.StringResource
 import com.android.diary.ui.compose.core.icon.AccountIcon
 import com.android.diary.ui.uistate.more.MoreListUiState
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MoreListScreenCompose(
     modifier: Modifier = Modifier,
@@ -29,7 +27,6 @@ fun MoreListScreenCompose(
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun TopBar(
     modifier: Modifier = Modifier

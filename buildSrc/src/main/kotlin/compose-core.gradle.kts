@@ -11,6 +11,10 @@ android {
     }
 }
 
+kotlin.sourceSets.all {
+    languageSettings.optIn("androidx.compose.material3.ExperimentalMaterial3Api")
+}
+
 dependencies {
     implementation("androidx.activity:activity-compose:1.6.1")
 

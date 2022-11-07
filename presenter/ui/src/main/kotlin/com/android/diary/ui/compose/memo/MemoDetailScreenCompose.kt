@@ -3,7 +3,6 @@ package com.android.diary.ui.compose.memo
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -18,7 +17,6 @@ import com.android.diary.ui.compose.core.button.NavigateUpButton
 import com.android.diary.ui.theme.DiaryDimen
 import com.android.diary.ui.uistate.memo.MemoDetailUiState
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MemoDetailScreenCompose(
     modifier: Modifier = Modifier,
@@ -38,7 +36,6 @@ fun MemoDetailScreenCompose(
     BackHandler(onBack = uiState.onNavigateUp)
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun TopBar(
     modifier: Modifier = Modifier,

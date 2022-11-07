@@ -27,14 +27,14 @@ android {
 
     signingConfigs {
         getByName("debug") {
-            storeFile = file("keystore/debug.keystore")
+            storeFile = file("keystore/debug.jks")
             keyAlias = localProperty("DEBUG_KEY_ALIAS")
             storePassword = localProperty("DEBUG_KEY_STORE_PASSWORD")
             keyPassword = localProperty("DEBUG_KEY_PASSWORD")
         }
 
         create("release") {
-            storeFile = file("keystore/release.keystore")
+            storeFile = file("keystore/release.jks")
             keyAlias = localProperty("RELEASE_KEY_ALIAS")
             storePassword = localProperty("RELEASE_KEY_STORE_PASSWORD")
             keyPassword = localProperty("RELEASE_KEY_PASSWORD")

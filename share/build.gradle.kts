@@ -12,7 +12,13 @@ android {
     namespace = "com.diary.android.share"
 
     defaultConfig {
-        buildConfigField(type = "String", name = "GOOGLE_OAUTH_CLIENT_ID", value = "\"${localProperty("DEBUG_GOOGLE_OAUTH_CLIENT_ID")}\"")
+        buildConfigField(type = "String", name = "GOOGLE_OAUTH_CLIENT_ID", value = "\"${localProperty("RELEASE_GOOGLE_OAUTH_CLIENT_ID")}\"")
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField(type = "String", name = "GOOGLE_OAUTH_CLIENT_ID", value = "\"${localProperty("DEBUG_GOOGLE_OAUTH_CLIENT_ID")}\"")
+        }
     }
 }
 

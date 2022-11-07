@@ -2,7 +2,6 @@ package com.android.diary.share.oauth
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import androidx.activity.result.IntentSenderRequest
 import com.diary.android.share.BuildConfig
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
@@ -12,6 +11,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.tasks.await
+import timber.log.Timber
 import javax.inject.Inject
 
 class GoogleOAuth @Inject constructor(
@@ -25,7 +25,7 @@ class GoogleOAuth @Inject constructor(
             oneTapSignIn()
         } catch (e: Exception) {
             if (e !is ApiException || e.statusCode != CREDENTIAL_NOT_FOUND) {
-                Log.e("PASSZ", "Google OneTap SignIn Failure", e)
+                Timber.e(e, "Google OneTap SignIn Failure")
             }
             googleSignIn()
         }

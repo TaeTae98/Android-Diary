@@ -28,5 +28,5 @@ class SyncDataInitializer : Initializer<Unit> {
         }
     }
 
-    override fun dependencies() = mutableListOf<Class<out Initializer<*>>>()
+    override fun dependencies() = mutableListOf(TimberInitializer::class.java)
 }

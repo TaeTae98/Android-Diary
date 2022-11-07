@@ -35,4 +35,6 @@ android {
 
 dependencies {
     implementation(project(":domain"))
+
+    implementation("com.jakewharton.timber:timber:5.0.1")
 }

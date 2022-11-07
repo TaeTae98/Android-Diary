@@ -44,13 +44,16 @@ android {
     buildTypes {
         debug {
             signingConfig = signingConfigs.getByName("debug")
+
             applicationIdSuffix = ".debug"
         }
 
         release {
             signingConfig = signingConfigs.getByName("release")
 
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
+
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -90,6 +93,8 @@ dependencies {
     implementation("androidx.startup:startup-runtime:1.1.1")
 
     implementation("androidx.lifecycle:lifecycle-process:2.5.1")
+
+    implementation("com.jakewharton.timber:timber:5.0.1")
 }
 
 kapt {

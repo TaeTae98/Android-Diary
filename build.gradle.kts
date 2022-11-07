@@ -9,17 +9,17 @@ dependencies {
 }
 
 subprojects {
-    initDokkaIfNeed()
-    initSpotlessIfNeed()
+    initDokka()
+    initSpotless()
 }
 
-fun Project.initDokkaIfNeed() {
+fun Project.initDokka() {
     if (name != "presenter") {
         apply(plugin = "org.jetbrains.dokka")
     }
 }
 
-fun Project.initSpotlessIfNeed() {
+fun Project.initSpotless() {
     if (name != "presenter") {
         apply(plugin = "com.diffplug.spotless")
 
@@ -39,7 +39,7 @@ fun Project.initSpotlessIfNeed() {
         }
 
         afterEvaluate {
-            if (name == "domain") {
+            if (plugins.hasPlugin("java-library")) {
                 tasks.getByPath("classes").dependsOn(tasks.spotlessApply)
             } else {
                 tasks.getByPath("preBuild").dependsOn(tasks.spotlessApply)

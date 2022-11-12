@@ -9,11 +9,11 @@ plugins {
 }
 
 android {
-    namespace = "com.android.diary"
+    namespace = Build.APPLICATION_ID
     compileSdk = Build.COMPILE_SDK
 
     defaultConfig {
-        applicationId = "com.android.diary"
+        applicationId = Build.APPLICATION_ID
         minSdk = Build.MIN_SDK
         targetSdk = Build.TARGET_SDK
         versionCode = Build.VERSION_CODE

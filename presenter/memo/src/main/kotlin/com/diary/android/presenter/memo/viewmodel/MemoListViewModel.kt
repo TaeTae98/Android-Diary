@@ -2,13 +2,13 @@ package com.diary.android.presenter.memo.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.android.diary.domain.model.Id
-import com.android.diary.domain.usecase.memo.DeleteMemoUseCase
-import com.android.diary.domain.usecase.memo.PagingMemoUseCase
-import com.android.diary.domain.utils.mapPaging
-import com.android.diary.ui.uistate.memo.MemoListUiState
-import com.android.diary.ui.uistate.memo.MemoUiState
+import com.diary.android.domain.model.Id
+import com.diary.android.domain.usecase.memo.DeleteMemoUseCase
+import com.diary.android.domain.usecase.memo.PagingMemoUseCase
+import com.diary.android.domain.utils.mapPaging
 import com.diary.android.presenter.memo.action.MemoListAction
+import com.diary.android.presenter.ui.uistate.memo.MemoListUiState
+import com.diary.android.presenter.ui.uistate.memo.MemoUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow

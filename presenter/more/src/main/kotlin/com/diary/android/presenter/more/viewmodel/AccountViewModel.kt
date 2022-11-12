@@ -2,16 +2,16 @@ package com.diary.android.presenter.more.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.android.diary.domain.model.DiaryAccount
-import com.android.diary.domain.model.IdToken
-import com.android.diary.domain.usecase.account.GetDiaryAccountUseCase
-import com.android.diary.domain.usecase.account.SignInUseCase
-import com.android.diary.domain.usecase.account.SignOutUseCase
-import com.android.diary.domain.usecase.data.MigrationDataUseCase
-import com.android.diary.share.oauth.GoogleOAuth
-import com.android.diary.share.oauth.GoogleOAuthResult
-import com.android.diary.ui.uistate.account.AccountUiState
+import com.diary.android.domain.model.DiaryAccount
+import com.diary.android.domain.model.IdToken
+import com.diary.android.domain.usecase.account.GetDiaryAccountUseCase
+import com.diary.android.domain.usecase.account.SignInUseCase
+import com.diary.android.domain.usecase.account.SignOutUseCase
+import com.diary.android.domain.usecase.data.MigrationDataUseCase
 import com.diary.android.presenter.more.action.AccountAction
+import com.diary.android.presenter.ui.uistate.account.AccountUiState
+import com.diary.android.share.oauth.GoogleOAuth
+import com.diary.android.share.oauth.GoogleOAuthResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted

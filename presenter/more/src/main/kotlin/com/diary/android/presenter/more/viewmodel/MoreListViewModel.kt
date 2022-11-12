@@ -2,8 +2,8 @@ package com.diary.android.presenter.more.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.android.diary.ui.uistate.more.MoreListUiState
 import com.diary.android.presenter.more.action.MoreListAction
+import com.diary.android.presenter.ui.uistate.more.MoreListUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow

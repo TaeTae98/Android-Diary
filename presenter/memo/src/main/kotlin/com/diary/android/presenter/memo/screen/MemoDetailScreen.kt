@@ -11,9 +11,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.android.diary.share.StringResource
 import com.android.diary.share.show
-import com.android.diary.ui.compose.memo.MemoDetailScreenCompose
 import com.diary.android.presenter.memo.action.MemoDetailAction
 import com.diary.android.presenter.memo.viewmodel.MemoDetailViewModel
+import com.diary.android.presenter.ui.compose.memo.MemoDetailScreenCompose
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable

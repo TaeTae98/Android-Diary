@@ -25,7 +25,7 @@ com.android.diary.domain.usecase.memo
 com.android.diary.domain.utils
 module:share
 com.android.diary.share
-com.android.diary.share.oauth
+com.diary.android.share.oauth
 module:main
 com.android.diary.main
 module:memo

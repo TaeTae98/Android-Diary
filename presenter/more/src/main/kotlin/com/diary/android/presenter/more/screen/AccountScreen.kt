@@ -15,12 +15,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.android.diary.share.StringResource
-import com.android.diary.share.oauth.GoogleOAuthRequest
-import com.android.diary.share.oauth.GoogleOAuthResult
 import com.android.diary.share.show
-import com.android.diary.ui.compose.account.AccountScreenCompose
 import com.diary.android.presenter.more.action.AccountAction
 import com.diary.android.presenter.more.viewmodel.AccountViewModel
+import com.diary.android.presenter.ui.compose.account.AccountScreenCompose
+import com.diary.android.share.oauth.GoogleOAuthRequest
+import com.diary.android.share.oauth.GoogleOAuthResult
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable

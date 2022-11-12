@@ -1,23 +1,24 @@
 {
   "project_info": {
     "project_number": "974002829690",
+    "firebase_url": "https://diary-5ed19-default-rtdb.firebaseio.com",
     "project_id": "diary-5ed19",
     "storage_bucket": "diary-5ed19.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:974002829690:android:8e9172b186b495cffa7ec3",
+        "mobilesdk_app_id": "1:974002829690:android:341a5fc628895c7ffa7ec3",
         "android_client_info": {
-          "package_name": "com.android.diary.debug"
+          "package_name": "com.diary.android.debug"
         }
       },
       "oauth_client": [
         {
-          "client_id": "974002829690-5obtm7kvdmn4ee7nj8le6nn42k1ftop2.apps.googleusercontent.com",
+          "client_id": "974002829690-1bmv0b460lqkgjfijjgfttnggdkuaqc3.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.android.diary.debug",
+            "package_name": "com.diary.android.debug",
             "certificate_hash": "dbf8fa7ba22c676f32b4e682b2f50fbbd275ef9a"
           }
         },
@@ -28,7 +29,7 @@
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDSdFChhWC0lUULeuwdP3qQ_FitxuXHIHM"
+          "current_key": "AIzaSyAUkKJHE4523X_K9Y14q4RIXeLyf7rN9C0"
         }
       ],
       "services": {

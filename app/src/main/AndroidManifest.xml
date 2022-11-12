@@ -32,11 +32,11 @@
             tools:node="merge">
 
             <meta-data
-                android:name="com.android.diary.initializer.SyncDataInitializer"
+                android:name="com.diary.android.initializer.SyncDataInitializer"
                 android:value="androidx.startup" />
 
             <meta-data
-                android:name="com.android.diary.initializer.TimberInitializer"
+                android:name="com.diary.android.initializer.TimberInitializer"
                 android:value="androidx.startup" />
         </provider>
     </application>

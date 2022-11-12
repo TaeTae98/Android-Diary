@@ -1,6 +1,6 @@
 package com.diary.android.presenter.more.action
 
-import com.android.diary.share.oauth.GoogleOAuthRequest
+import com.diary.android.share.oauth.GoogleOAuthRequest
 
 sealed interface AccountAction {
     object NavigateUp : AccountAction

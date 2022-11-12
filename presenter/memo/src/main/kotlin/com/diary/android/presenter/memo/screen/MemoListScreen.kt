@@ -11,9 +11,9 @@ import androidx.navigation.NavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.android.diary.share.navigateToMemoDetail
 import com.android.diary.share.show
-import com.android.diary.ui.compose.memo.MemoListScreenCompose
 import com.diary.android.presenter.memo.action.MemoListAction
 import com.diary.android.presenter.memo.viewmodel.MemoListViewModel
+import com.diary.android.presenter.ui.compose.memo.MemoListScreenCompose
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable

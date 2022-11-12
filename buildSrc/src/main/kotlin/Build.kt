@@ -1,6 +1,8 @@
 import org.gradle.api.JavaVersion
 
 object Build {
+    const val APPLICATION_ID = "com.diary.android"
+
     const val MIN_SDK = 30
     const val TARGET_SDK = 33
     const val COMPILE_SDK = 33

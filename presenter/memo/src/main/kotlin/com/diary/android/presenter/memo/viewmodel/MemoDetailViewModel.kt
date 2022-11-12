@@ -3,18 +3,16 @@ package com.diary.android.presenter.memo.viewmodel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.android.diary.domain.constant.Const
-import com.android.diary.domain.constant.Parameter
-import com.android.diary.domain.model.Id
-import com.android.diary.domain.model.memo.Memo
-import com.android.diary.domain.usecase.memo.FindMemoUseCase
-import com.android.diary.domain.usecase.memo.MemoUpsertUseCase
-import com.android.diary.domain.utils.onFalse
-import com.android.diary.domain.utils.onNullOrFalse
-import com.android.diary.domain.utils.onTrue
-import com.android.diary.ui.uistate.core.TextInputUiState
-import com.android.diary.ui.uistate.memo.MemoDetailUiState
+import com.diary.android.domain.model.Id
+import com.diary.android.domain.model.memo.Memo
+import com.diary.android.domain.usecase.memo.FindMemoUseCase
+import com.diary.android.domain.usecase.memo.MemoUpsertUseCase
+import com.diary.android.domain.utils.onFalse
+import com.diary.android.domain.utils.onNullOrFalse
+import com.diary.android.domain.utils.onTrue
 import com.diary.android.presenter.memo.action.MemoDetailAction
+import com.diary.android.presenter.ui.uistate.core.TextInputUiState
+import com.diary.android.presenter.ui.uistate.memo.MemoDetailUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -37,10 +35,10 @@ class MemoDetailViewModel @Inject constructor(
     val action = _action.asSharedFlow()
 
     private val id = savedStateHandle.getStateFlow(
-        key = Parameter.ID,
+        key = com.diary.android.domain.constant.Parameter.ID,
         initialValue = UUID.randomUUID().toString()
     ).map { id ->
-        id.takeIf { it != Const.INVALID_UUID } ?: UUID.randomUUID().toString()
+        id.takeIf { it != com.diary.android.domain.constant.Const.INVALID_UUID } ?: UUID.randomUUID().toString()
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.Eagerly,
@@ -48,12 +46,12 @@ class MemoDetailViewModel @Inject constructor(
     )
 
     private val isNew = savedStateHandle.getStateFlow(
-        key = Parameter.IS_NEW,
+        key = com.diary.android.domain.constant.Parameter.IS_NEW,
         initialValue = true
     )
 
     private val title = savedStateHandle.getStateFlow(
-        key = Parameter.TITLE,
+        key = com.diary.android.domain.constant.Parameter.TITLE,
         initialValue = ""
     )
 
@@ -76,7 +74,7 @@ class MemoDetailViewModel @Inject constructor(
     )
 
     private val descriptionUiState = savedStateHandle.getStateFlow(
-        key = Parameter.DESCRIPTION,
+        key = com.diary.android.domain.constant.Parameter.DESCRIPTION,
         initialValue = ""
     ).map { description ->
         TextInputUiState(
@@ -87,7 +85,7 @@ class MemoDetailViewModel @Inject constructor(
         scope = viewModelScope,
         started = SharingStarted.Eagerly,
         initialValue = TextInputUiState(
-            value = savedStateHandle[Parameter.DESCRIPTION] ?: "",
+            value = savedStateHandle[com.diary.android.domain.constant.Parameter.DESCRIPTION] ?: "",
             onValueChange = ::setDescription
         )
     )
@@ -131,12 +129,12 @@ class MemoDetailViewModel @Inject constructor(
     )
 
     init {
-        savedStateHandle.get<Boolean>(Parameter.IS_INITIALIZED).onNullOrFalse {
+        savedStateHandle.get<Boolean>(com.diary.android.domain.constant.Parameter.IS_INITIALIZED).onNullOrFalse {
             viewModelScope.launch {
                 findMemoUseCase(Id(id.value)).getOrNull()?.let { memo ->
                     setTitle(memo.title)
                     setDescription(memo.description)
-                    savedStateHandle[Parameter.IS_INITIALIZED] = true
+                    savedStateHandle[com.diary.android.domain.constant.Parameter.IS_INITIALIZED] = true
                 }
             }
         }
@@ -148,12 +146,12 @@ class MemoDetailViewModel @Inject constructor(
     }
 
     private fun setId(id: String = UUID.randomUUID().toString()) = savedStateHandle.set(
-        key = Parameter.ID,
+        key = com.diary.android.domain.constant.Parameter.ID,
         value = id
     )
 
     private fun setTitle(title: String = "") = savedStateHandle.set(
-        key = Parameter.TITLE,
+        key = com.diary.android.domain.constant.Parameter.TITLE,
         value = title
     ).also {
         viewModelScope.launch {
@@ -162,7 +160,7 @@ class MemoDetailViewModel @Inject constructor(
     }
 
     private fun setDescription(description: String = "") = savedStateHandle.set(
-        key = Parameter.DESCRIPTION,
+        key = com.diary.android.domain.constant.Parameter.DESCRIPTION,
         value = description
     )
 

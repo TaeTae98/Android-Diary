@@ -1,5 +1,4 @@
-package com.android.diary.share
-
-import com.diary.android.share.R
+package com.diary.android.share
 
 typealias StringResource = R.string
+typealias StyleResource = R.style

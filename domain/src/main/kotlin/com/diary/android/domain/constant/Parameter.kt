@@ -9,4 +9,5 @@ object Parameter {
     const val USER_ID = "userId"
     const val UPDATED_AT = "updatedAt"
     const val STATE = "state"
+    const val DATE = "date"
 }

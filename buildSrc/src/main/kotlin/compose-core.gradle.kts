@@ -12,7 +12,10 @@ android {
 }
 
 kotlin.sourceSets.all {
+    languageSettings.optIn("androidx.compose.foundation.ExperimentalFoundationApi")
     languageSettings.optIn("androidx.compose.material3.ExperimentalMaterial3Api")
+    languageSettings.optIn("com.google.accompanist.pager.ExperimentalPagerApi")
+    languageSettings.optIn("androidx.compose.material.ExperimentalMaterialApi")
 }
 
 dependencies {
@@ -22,6 +25,7 @@ dependencies {
 
     implementation("androidx.compose.foundation:foundation:1.3.1")
 
+    implementation("com.google.android.material:material:1.7.0")
     implementation("androidx.compose.material:material:1.3.1")
     implementation("androidx.compose.material:material-icons-core:1.3.1")
     implementation("androidx.compose.material:material-icons-extended:1.3.1")
@@ -33,6 +37,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling:1.3.1")
 
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.27.0")
+    implementation("com.google.accompanist:accompanist-pager:0.27.0")
 
     implementation("androidx.paging:paging-compose:1.0.0-alpha17")
 }

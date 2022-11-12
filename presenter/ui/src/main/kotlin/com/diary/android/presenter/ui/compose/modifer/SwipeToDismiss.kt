@@ -2,7 +2,6 @@ package com.diary.android.presenter.ui.compose.modifer
 
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.offset
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.rememberSwipeableState
 import androidx.compose.material.swipeable
 import androidx.compose.runtime.LaunchedEffect
@@ -11,18 +10,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
-import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.unit.IntOffset
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filterNot
 import kotlin.math.roundToInt
 
-@OptIn(ExperimentalMaterialApi::class)
 fun Modifier.swipeToDismiss(
     orientation: Orientation = Orientation.Horizontal,
     enable: Boolean = true,
     onDismissed: (() -> Unit)? = null
-): Modifier = composed {
+) = composed {
     val state = rememberSwipeableState(initialValue = 0)
     val (size, setSize) = remember {
         mutableStateOf(0)
@@ -49,11 +47,11 @@ fun Modifier.swipeToDismiss(
         }
     }
 
-    onGloballyPositioned {
+    onSizeChanged {
         val measuredSize = if (orientation == Orientation.Horizontal) {
-            it.size.width
+            it.width
         } else {
-            it.size.height
+            it.height
         }
 
         setSize(measuredSize)

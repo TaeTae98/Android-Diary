@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="memo">Memo</string>
+    <string name="calendar">Calendar</string>
     <string name="payment">Payment</string>
     <string name="tag">Tag</string>
-    <string name="file">File</string>
     <string name="more">More</string>
     <string name="account">Account</string>
+    <string name="file">File</string>
 
     <string name="finish">Finish</string>
 

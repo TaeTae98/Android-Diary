@@ -16,10 +16,10 @@ dependencyResolutionManagement {
 
 rootProject.name = "Diary"
 
-include(":app", ":data", ":domain", ":share")
+include(":app", ":data", ":domain", ":share", ":presenter:ui",)
 include(
-    ":presenter:ui",
     ":presenter:main",
     ":presenter:memo",
+    ":presenter:calendar",
     ":presenter:more"
 )

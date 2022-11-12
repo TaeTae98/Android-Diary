@@ -3,5 +3,5 @@ plugins {
 }
 
 android {
-    namespace = "com.android.diary.presenter.more"
+    namespace = "${Build.APPLICATION_ID}.presenter.more"
 }

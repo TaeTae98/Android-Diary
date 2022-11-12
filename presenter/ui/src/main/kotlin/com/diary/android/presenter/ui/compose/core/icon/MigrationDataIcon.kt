@@ -6,7 +6,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import com.android.diary.share.StringResource
+import com.diary.android.share.StringResource
 
 @Composable
 fun MigrationDataIcon(

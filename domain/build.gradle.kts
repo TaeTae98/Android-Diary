@@ -9,6 +9,7 @@ java {
 }
 
 dependencies {
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
     implementation("javax.inject:javax.inject:1")
     implementation("androidx.paging:paging-common:3.1.1")
 }

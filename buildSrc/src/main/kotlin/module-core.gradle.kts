@@ -35,6 +35,6 @@ android {
 
 dependencies {
     implementation(project(":domain"))
-
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
     implementation("com.jakewharton.timber:timber:5.0.1")
 }

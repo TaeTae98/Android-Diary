@@ -4,5 +4,5 @@ plugins {
 }
 
 android {
-    namespace = "com.android.diary.presenter.ui"
+    namespace = "${Build.APPLICATION_ID}.presenter.ui"
 }

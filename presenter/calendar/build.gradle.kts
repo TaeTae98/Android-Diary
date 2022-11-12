@@ -3,11 +3,10 @@ plugins {
 }
 
 android {
-    namespace = "${Build.APPLICATION_ID}.presenter.main"
+    namespace = "${Build.APPLICATION_ID}.presenter.calendar"
 }
 
 dependencies {
     implementation(project(":presenter:memo"))
-    implementation(project(":presenter:calendar"))
     implementation(project(":presenter:more"))
 }

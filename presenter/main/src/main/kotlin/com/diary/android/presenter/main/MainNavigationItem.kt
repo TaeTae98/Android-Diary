@@ -4,12 +4,12 @@ import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Article
 import androidx.compose.material.icons.rounded.AttachMoney
-import androidx.compose.material.icons.rounded.Folder
+import androidx.compose.material.icons.rounded.DateRange
 import androidx.compose.material.icons.rounded.MoreHoriz
 import androidx.compose.material.icons.rounded.Tag
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.android.diary.share.StringResource
 import com.diary.android.domain.deeplink.DeepLink
+import com.diary.android.share.StringResource
 
 enum class MainNavigationItem(
     val icon: ImageVector,
@@ -20,26 +20,26 @@ enum class MainNavigationItem(
     Memo(
         icon = Icons.Rounded.Article,
         label = StringResource.memo,
-        route = com.diary.android.domain.deeplink.DeepLink.MEMO,
+        route = DeepLink.MEMO,
     ),
-    Payment(
-        icon = Icons.Rounded.AttachMoney,
-        label = StringResource.payment,
-        route = "payment",
+    Calendar(
+        icon = Icons.Rounded.DateRange,
+        label = StringResource.calendar,
+        route = DeepLink.CALENDAR
     ),
     Tag(
         icon = Icons.Rounded.Tag,
         label = StringResource.tag,
         route = "tag",
     ),
-    File(
-        icon = Icons.Rounded.Folder,
-        label = StringResource.file,
-        route = "file",
+    Payment(
+        icon = Icons.Rounded.AttachMoney,
+        label = StringResource.payment,
+        route = "payment",
     ),
     More(
         icon = Icons.Rounded.MoreHoriz,
         label = StringResource.more,
-        route = com.diary.android.domain.deeplink.DeepLink.MORE
+        route = DeepLink.MORE
     )
 }

@@ -1,14 +1,12 @@
 package com.diary.android.presenter.main
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
@@ -23,16 +21,17 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.android.diary.share.isMainBottomBarVisible
-import com.android.diary.share.isSelected
+import com.diary.android.domain.deeplink.DeepLink
 import com.diary.android.domain.utils.isTrue
+import com.diary.android.presenter.calendar.calendarGraph
 import com.diary.android.presenter.memo.memoGraph
 import com.diary.android.presenter.more.moreGraph
+import com.diary.android.share.isMainBottomBarVisible
+import com.diary.android.share.isSelected
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
 @Composable
 fun MainScreen(
     modifier: Modifier = Modifier,
@@ -56,7 +55,6 @@ fun MainScreen(
     )
 }
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 private fun MainNavHost(
     modifier: Modifier = Modifier,
@@ -64,19 +62,12 @@ private fun MainNavHost(
 ) = AnimatedNavHost(
     modifier = modifier.fillMaxSize(),
     navController = navController,
-    startDestination = com.diary.android.domain.deeplink.DeepLink.MEMO,
-    route = com.diary.android.domain.deeplink.DeepLink.MAIN
+    startDestination = DeepLink.MEMO,
+    route = DeepLink.MAIN
 ) {
     memoGraph(navController = navController)
+    calendarGraph(navController = navController)
     moreGraph(navController = navController)
-    composable("payment") {
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(text = "payment")
-        }
-    }
     composable("tag") {
         Box(
             modifier = Modifier.fillMaxSize(),
@@ -85,12 +76,12 @@ private fun MainNavHost(
             Text(text = "tag")
         }
     }
-    composable("file") {
+    composable("payment") {
         Box(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            Text(text = "file")
+            Text(text = "payment")
         }
     }
 }

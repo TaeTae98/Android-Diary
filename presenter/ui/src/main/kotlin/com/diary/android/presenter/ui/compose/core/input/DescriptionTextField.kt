@@ -5,9 +5,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.android.diary.share.StringResource
 import com.diary.android.presenter.ui.theme.DiaryTheme3
 import com.diary.android.presenter.ui.uistate.core.TextInputUiState
+import com.diary.android.share.StringResource
 
 @Composable
 fun DescriptionTextField(

@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "com.diary.android.share"
+    namespace = "${Build.APPLICATION_ID}.share"
 
     defaultConfig {
         buildConfigField(type = "String", name = "GOOGLE_OAUTH_CLIENT_ID", value = "\"${localProperty("RELEASE_GOOGLE_OAUTH_CLIENT_ID")}\"")

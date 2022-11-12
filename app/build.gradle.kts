@@ -85,8 +85,6 @@ dependencies {
 
     implementation("androidx.core:core-splashscreen:1.0.0")
 
-    implementation("com.google.android.material:material:1.7.0")
-
     implementation(platform("com.google.firebase:firebase-bom:31.0.2"))
     implementation("com.google.firebase:firebase-analytics-ktx")
 

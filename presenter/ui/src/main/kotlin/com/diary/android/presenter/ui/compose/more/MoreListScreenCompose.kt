@@ -9,9 +9,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.android.diary.share.StringResource
 import com.diary.android.presenter.ui.compose.core.icon.AccountIcon
 import com.diary.android.presenter.ui.uistate.more.MoreListUiState
+import com.diary.android.share.StringResource
 
 @Composable
 fun MoreListScreenCompose(

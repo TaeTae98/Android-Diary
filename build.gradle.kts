@@ -5,9 +5,6 @@ plugins {
     id("com.diffplug.spotless") version "6.11.0"
 }
 
-dependencies {
-}
-
 subprojects {
     initDokka()
     initSpotless()

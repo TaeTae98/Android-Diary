@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.android.diary.data"
+    namespace = "${Build.APPLICATION_ID}.data"
 
     defaultConfig {
         javaCompileOptions {

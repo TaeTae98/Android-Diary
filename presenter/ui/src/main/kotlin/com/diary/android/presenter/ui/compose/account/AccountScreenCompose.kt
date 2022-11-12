@@ -14,7 +14,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.android.diary.share.StringResource
 import com.diary.android.presenter.ui.compose.core.button.NavigateUpButton
 import com.diary.android.presenter.ui.compose.core.icon.LoginIcon
 import com.diary.android.presenter.ui.compose.core.icon.LogoutIcon
@@ -23,6 +22,7 @@ import com.diary.android.presenter.ui.compose.more.MoreText
 import com.diary.android.presenter.ui.theme.DiaryDimen
 import com.diary.android.presenter.ui.theme.DiaryTypography3
 import com.diary.android.presenter.ui.uistate.account.AccountUiState
+import com.diary.android.share.StringResource
 
 @Composable
 fun AccountScreenCompose(

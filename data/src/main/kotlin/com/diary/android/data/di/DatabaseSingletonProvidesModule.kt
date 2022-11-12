@@ -2,7 +2,7 @@ package com.diary.android.data.di
 
 import android.content.Context
 import androidx.room.Room
-import com.android.diary.data.BuildConfig
+import com.diary.android.data.BuildConfig
 import com.diary.android.data.room.DiaryRoomDatabase
 import dagger.Module
 import dagger.Provides

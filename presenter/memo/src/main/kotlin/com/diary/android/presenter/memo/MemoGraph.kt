@@ -4,7 +4,6 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
-import com.diary.android.domain.constant.Const
 import com.diary.android.domain.constant.Parameter
 import com.diary.android.domain.deeplink.DeepLink
 import com.diary.android.presenter.memo.screen.MemoDetailScreen
@@ -28,11 +27,17 @@ fun NavGraphBuilder.memoGraph(
             navArgument(name = Parameter.ID) {
                 type = NavType.StringType
                 nullable = false
-                defaultValue = Const.INVALID_UUID
+                defaultValue = ""
             },
             navArgument(name = Parameter.IS_NEW) {
                 type = NavType.BoolType
                 defaultValue = true
+            },
+            navArgument(name = Parameter.BEGIN_DATE) {
+                type = NavType.IntType
+            },
+            navArgument(name = Parameter.END_DATE) {
+                type = NavType.IntType
             }
         )
     ) {

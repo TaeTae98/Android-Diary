@@ -1,6 +1,9 @@
 package com.diary.android.domain.deeplink
 
 import com.diary.android.domain.constant.Parameter
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.todayIn
 import java.util.UUID
 
 object DeepLink {
@@ -15,6 +18,8 @@ object DeepLink {
     val MEMO_DETAIL = MEMO_DETAIL_BUILDER
         .addPath("{${Parameter.ID}}")
         .putQuery(Parameter.IS_NEW, "{${Parameter.IS_NEW}}")
+        .putQuery(Parameter.BEGIN_DATE, "{${Parameter.BEGIN_DATE}}")
+        .putQuery(Parameter.END_DATE, "{${Parameter.END_DATE}}")
         .build()
 
     private val CALENDAR_BUILDER = APP.setHost("calendar")
@@ -31,9 +36,13 @@ object DeepLink {
 
     fun getMemoDetailLink(
         id: String = UUID.randomUUID().toString(),
-        isNew: Boolean = true
+        isNew: Boolean = true,
+        beginDate: Int = Clock.System.todayIn(TimeZone.currentSystemDefault()).toEpochDays(),
+        endDate: Int = Clock.System.todayIn(TimeZone.currentSystemDefault()).toEpochDays(),
     ) = MEMO_DETAIL_BUILDER
         .addPath(id)
         .putQuery(Parameter.IS_NEW, isNew)
+        .putQuery(Parameter.BEGIN_DATE, beginDate)
+        .putQuery(Parameter.END_DATE, endDate)
         .build()
 }

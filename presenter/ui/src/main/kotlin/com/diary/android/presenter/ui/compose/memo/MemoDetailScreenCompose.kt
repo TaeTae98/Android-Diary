@@ -1,8 +1,11 @@
 package com.diary.android.presenter.ui.compose.memo
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.gestures.ScrollableDefaults
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -11,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.diary.android.presenter.ui.compose.component.ComponentDateRange
 import com.diary.android.presenter.ui.compose.component.ComponentHeader
 import com.diary.android.presenter.ui.compose.core.button.AddFloatingButton
 import com.diary.android.presenter.ui.compose.core.button.NavigateUpButton
@@ -66,14 +70,23 @@ private fun Content(
     modifier: Modifier = Modifier,
     uiState: MemoDetailUiState
 ) = Column(
-    modifier = modifier.padding(
-        horizontal = DiaryDimen.DEFAULT_HORIZONTAL,
-        vertical = DiaryDimen.DEFAULT_VERTICAL
-    ),
+    modifier = modifier
+        .padding(
+            horizontal = DiaryDimen.DEFAULT_HORIZONTAL,
+            vertical = DiaryDimen.DEFAULT_VERTICAL
+        )
+        .verticalScroll(
+            state = rememberScrollState(),
+            flingBehavior = ScrollableDefaults.flingBehavior()
+        ),
 ) {
     ComponentHeader(
         titleUiState = uiState.titleUiState,
         descriptionUiState = uiState.descriptionUiState
+    )
+
+    ComponentDateRange(
+        uiState = uiState.dateRangeUiState
     )
 }
 

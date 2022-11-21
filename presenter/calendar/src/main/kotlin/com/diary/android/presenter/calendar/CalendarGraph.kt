@@ -4,7 +4,6 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
-import com.diary.android.domain.constant.Const
 import com.diary.android.domain.constant.Parameter
 import com.diary.android.domain.deeplink.DeepLink
 import com.diary.android.presenter.calendar.screen.CalendarSummaryScreen
@@ -21,8 +20,7 @@ fun NavGraphBuilder.calendarGraph(
         route = DeepLink.CALENDAR_SUMMARY,
         arguments = listOf(
             navArgument(name = Parameter.DATE) {
-                type = NavType.LongType
-                defaultValue = Const.INVALID_DATE
+                type = NavType.IntType
             }
         )
     ) {

@@ -6,10 +6,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.android.diary.share.navigateToAccount
 import com.diary.android.presenter.more.action.MoreListAction
 import com.diary.android.presenter.more.viewmodel.MoreListViewModel
 import com.diary.android.presenter.ui.compose.more.MoreListScreenCompose
+import com.diary.android.share.navigateToAccount
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable

@@ -30,6 +30,7 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntSize
 import com.diary.android.domain.utils.onTrue
 import com.diary.android.presenter.ui.compose.dialog.showDatePickerDialog
@@ -48,7 +49,7 @@ import kotlinx.datetime.Month
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.minus
 import kotlinx.datetime.plus
-import kotlinx.datetime.toLocalDateTime
+import kotlinx.datetime.todayIn
 import java.time.format.TextStyle
 import java.util.Locale
 import kotlin.math.abs
@@ -59,13 +60,12 @@ private const val DAY_OF_WEEK_COUNT = 7
 private const val WEEK_OF_MONTH_COUNT = 6
 private const val EDGE_PERCENT = 0.075F
 private const val DRAG_EDGE_DELAY = 750L
-
-private val date = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
+private val DEFAULT_DATE = Clock.System.todayIn(TimeZone.currentSystemDefault())
 
 private fun Int.toCalendarIndex() = minus(INITIAL_PAGE)
 private fun Int.toCalendarPage() = plus(INITIAL_PAGE)
 private fun PagerState.getLocalDate(row: Int, column: Int): LocalDate {
-    val localDate = date.plus(currentPage.toCalendarIndex(), DateTimeUnit.MONTH)
+    val localDate = DEFAULT_DATE.plus(currentPage.toCalendarIndex(), DateTimeUnit.MONTH)
     return localDate.plus(row * 7 + column - (localDate.dayOfMonth + localDate.dayOfWeek.value % 7), DateTimeUnit.DAY)
 }
 
@@ -78,7 +78,7 @@ private data class Range(
 @Composable
 fun Calendar(
     modifier: Modifier = Modifier,
-    onPickDateRange: (LocalDate, LocalDate) -> Unit = { _, _ -> }
+    onPickDateRange: (beginDate: LocalDate, endDate: LocalDate) -> Unit = { _, _ -> }
 ) {
     val coroutineScope = rememberCoroutineScope()
     val pagerState = rememberPagerState(initialPage = INITIAL_PAGE)
@@ -89,18 +89,18 @@ fun Calendar(
         modifier = modifier.calendarTouchEvent(
             pagerState = pagerState,
             topPadding = monthHeaderSize.height,
-            onDrag = { from, to -> setRange(Range(from, to)) },
+            onDrag = { beginDate, endDate -> setRange(Range(beginDate, endDate)) },
             onDragCanceled = { setRange(null) },
-            onDragFinished = { from, to ->
+            onDragFinished = { beginDate, endDate ->
                 setRange(null)
-                onPickDateRange(from, to)
+                onPickDateRange(beginDate, endDate)
             }
         ),
         count = PAGE_COUNT,
         state = pagerState,
         key = { it }
     ) { page ->
-        val month = remember(date, page) { date.plus(page.toCalendarIndex(), DateTimeUnit.MONTH) }
+        val month = remember(page) { DEFAULT_DATE.plus(page.toCalendarIndex(), DateTimeUnit.MONTH) }
 
         Month(
             year = month.year,
@@ -115,8 +115,9 @@ fun Calendar(
             },
             onPickDate = remember {
                 {
+                    val date = LocalDate.fromEpochDays(it)
                     coroutineScope.launch {
-                        pagerState.animateScrollToPage(((it.year - date.year) * 12 + it.month.value - date.month.value).toCalendarPage())
+                        pagerState.animateScrollToPage(((date.year - DEFAULT_DATE.year) * 12 + date.month.value - DEFAULT_DATE.month.value).toCalendarPage())
                     }
                 }
             },
@@ -132,7 +133,7 @@ private fun Month(
     month: Month,
     range: Range? = null,
     onMonthHeaderLongClick: () -> Unit,
-    onPickDate: (LocalDate) -> Unit,
+    onPickDate: (Int) -> Unit,
     setMonthHeaderSize: (IntSize) -> Unit,
 ) = Card(
     modifier = modifier
@@ -186,7 +187,7 @@ private fun MonthHeader(
     year: Int,
     month: Month,
     onLongClick: () -> Unit,
-    onPickDate: (LocalDate) -> Unit,
+    onPickDate: (Int) -> Unit,
     setMonthHeaderSize: (IntSize) -> Unit,
 ) {
     val context = LocalContext.current
@@ -333,9 +334,9 @@ private fun Modifier.calendarTouchEvent(
     pagerState: PagerState,
     isEnable: Boolean = true,
     topPadding: Int = 0,
-    onDrag: (from: LocalDate, to: LocalDate) -> Unit = { _, _ -> },
+    onDrag: (beginDate: LocalDate, endDate: LocalDate) -> Unit = { _, _ -> },
     onDragCanceled: () -> Unit = {},
-    onDragFinished: (from: LocalDate, to: LocalDate) -> Unit = { _, _ -> },
+    onDragFinished: (beginDate: LocalDate, endDate: LocalDate) -> Unit = { _, _ -> },
 ) = composed {
     val coroutineScope = rememberCoroutineScope()
     val haptic = LocalHapticFeedback.current
@@ -357,11 +358,11 @@ private fun Modifier.calendarTouchEvent(
                         baseDate = pagerState.getLocalDate(((it.y - topPadding) / itemHeight).toInt(), (it.x / itemWidth).toInt())
                     }
                 },
-                onDragEnd = { onDragFinished(minOf(baseDate ?: date, dragDate ?: date), maxOf(baseDate ?: date, dragDate ?: date)) },
+                onDragEnd = { onDragFinished(minOf(baseDate ?: DEFAULT_DATE, dragDate ?: DEFAULT_DATE), maxOf(baseDate ?: DEFAULT_DATE, dragDate ?: DEFAULT_DATE)) },
                 onDragCancel = onDragCanceled
             ) { change, _ ->
                 dragDate = pagerState.getLocalDate(((change.position.y - topPadding) / itemHeight).toInt(), (change.position.x / itemWidth).toInt())
-                onDrag(minOf(baseDate ?: date, dragDate ?: date), maxOf(baseDate ?: date, dragDate ?: date))
+                onDrag(minOf(baseDate ?: DEFAULT_DATE, dragDate ?: DEFAULT_DATE), maxOf(baseDate ?: DEFAULT_DATE, dragDate ?: DEFAULT_DATE))
                 when {
                     change.position.x <= size.width * EDGE_PERCENT && abs(onDragEdgeConsumedTime - change.uptimeMillis) >= DRAG_EDGE_DELAY -> {
                         onDragEdgeConsumedTime = change.uptimeMillis
@@ -380,3 +381,7 @@ private fun Modifier.calendarTouchEvent(
         }
     }
 }
+
+@Preview
+@Composable
+private fun Preview() = Calendar()

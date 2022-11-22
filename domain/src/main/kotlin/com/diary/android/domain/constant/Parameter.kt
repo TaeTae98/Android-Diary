@@ -9,7 +9,9 @@ object Parameter {
     const val DESCRIPTION = "description"
     const val DATE = "date"
     const val BEGIN_DATE = "beginDate"
+    const val BEGIN_DATE_EDIT = "beginDateEdit"
     const val END_DATE = "endDate"
+    const val END_DATE_EDIT = "endDateEdit"
     const val HAS_DATE = "hasDate"
 
     const val USER_ID = "userId"

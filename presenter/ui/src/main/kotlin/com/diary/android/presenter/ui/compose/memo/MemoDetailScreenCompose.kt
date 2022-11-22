@@ -30,7 +30,15 @@ fun MemoDetailScreenCompose(
     modifier = modifier,
     topBar = { TopBar(onNavigateUp = uiState.onNavigateUp) },
     snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
-    floatingActionButton = { FloatingButton(uiState = uiState) }
+    floatingActionButton = {
+        when (uiState) {
+            is MemoDetailUiState.Add -> AddFloatingButton(
+                modifier = modifier,
+                onClick = uiState.onAdd
+            )
+            else -> Unit
+        }
+    }
 ) {
     Content(
         modifier = Modifier.padding(it),
@@ -52,18 +60,6 @@ private fun TopBar(
         NavigateUpButton(onClick = onNavigateUp)
     }
 )
-
-@Composable
-private fun FloatingButton(
-    modifier: Modifier = Modifier,
-    uiState: MemoDetailUiState
-) = when (uiState) {
-    is MemoDetailUiState.Add -> AddFloatingButton(
-        modifier = modifier,
-        onClick = uiState.onAdd
-    )
-    else -> Unit
-}
 
 @Composable
 private fun Content(

@@ -5,7 +5,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.diary.android.presenter.ui.compose.core.icon.ClearIcon
-import com.diary.android.presenter.ui.theme.DiaryTheme3
 
 @Composable
 fun ClearButton(
@@ -22,6 +21,4 @@ fun ClearButton(
 
 @Preview
 @Composable
-private fun Preview() = DiaryTheme3 {
-    ClearButton()
-}
+private fun Preview() = ClearButton()

@@ -1,4 +1,4 @@
-package com.android.diary.share
+package com.diary.android.share
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner

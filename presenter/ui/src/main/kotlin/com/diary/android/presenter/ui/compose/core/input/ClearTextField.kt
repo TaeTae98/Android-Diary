@@ -10,7 +10,6 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.tooling.preview.Preview
 import com.diary.android.presenter.ui.compose.core.button.ClearButton
-import com.diary.android.presenter.ui.theme.DiaryTheme3
 import com.diary.android.presenter.ui.uistate.core.TextInputUiState
 
 @Composable
@@ -49,6 +48,4 @@ fun ClearTextField(
 
 @Preview
 @Composable
-private fun Preview() = DiaryTheme3 {
-    ClearTextField()
-}
+private fun Preview() = ClearTextField()

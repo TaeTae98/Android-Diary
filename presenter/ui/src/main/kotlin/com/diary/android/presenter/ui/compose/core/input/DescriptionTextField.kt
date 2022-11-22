@@ -5,7 +5,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.diary.android.presenter.ui.theme.DiaryTheme3
 import com.diary.android.presenter.ui.uistate.core.TextInputUiState
 import com.diary.android.share.StringResource
 
@@ -23,6 +22,4 @@ fun DescriptionTextField(
 
 @Preview
 @Composable
-private fun Preview() = DiaryTheme3 {
-    DescriptionTextField()
-}
+private fun Preview() = DescriptionTextField()

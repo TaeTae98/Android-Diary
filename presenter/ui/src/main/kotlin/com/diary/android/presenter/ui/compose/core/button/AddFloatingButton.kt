@@ -5,7 +5,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.diary.android.presenter.ui.compose.core.icon.AddIcon
-import com.diary.android.presenter.ui.theme.DiaryTheme3
 
 @Composable
 fun AddFloatingButton(
@@ -20,6 +19,4 @@ fun AddFloatingButton(
 
 @Preview
 @Composable
-private fun Preview() = DiaryTheme3 {
-    AddFloatingButton()
-}
+private fun Preview() = AddFloatingButton()

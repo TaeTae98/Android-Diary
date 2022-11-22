@@ -24,7 +24,7 @@ class MemoRemoteDataSource @Inject constructor() {
 
     fun deleteById(id: String) = database.collection(COLLECTION)
         .document(id)
-        .update(Parameter.STATE, MemoState.DELETED)
+        .update(Parameter.STATE, MemoState.DELETED.value)
 
     suspend fun findSyncData(
         userId: String,

@@ -22,7 +22,6 @@ import com.diary.android.domain.utils.isNotNull
 import com.diary.android.presenter.ui.compose.core.button.AddFloatingButton
 import com.diary.android.presenter.ui.compose.modifer.swipeToDismiss
 import com.diary.android.presenter.ui.theme.DiaryDimen
-import com.diary.android.presenter.ui.theme.DiaryTheme3
 import com.diary.android.presenter.ui.uistate.memo.MemoListUiState
 import com.diary.android.presenter.ui.uistate.memo.MemoUiState
 import kotlinx.coroutines.flow.flowOf
@@ -38,22 +37,18 @@ fun MemoListScreenCompose(
 ) = Scaffold(
     modifier = modifier,
     snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
-    floatingActionButton = { FloatingButton(uiState = uiState) }
+    floatingActionButton = {
+        when (uiState) {
+            is MemoListUiState.List -> AddFloatingButton(
+                modifier = modifier,
+                onClick = uiState.onAdd
+            )
+        }
+    }
 ) {
     Content(
         modifier = Modifier.padding(it),
         memoItems = memoItems
-    )
-}
-
-@Composable
-private fun FloatingButton(
-    modifier: Modifier = Modifier,
-    uiState: MemoListUiState
-) = when (uiState) {
-    is MemoListUiState.List -> AddFloatingButton(
-        modifier = modifier,
-        onClick = uiState.onAdd
     )
 }
 
@@ -88,6 +83,4 @@ private fun Content(
 
 @Composable
 @Preview
-private fun Preview() = DiaryTheme3 {
-    MemoListScreenCompose()
-}
+private fun Preview() = MemoListScreenCompose()

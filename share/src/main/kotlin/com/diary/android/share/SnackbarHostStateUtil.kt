@@ -1,10 +1,9 @@
-package com.android.diary.share
+package com.diary.android.share
 
 import android.content.Context
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
-import com.diary.android.share.StringResource
 
 suspend inline fun SnackbarHostState.show(
     message: String,
@@ -32,7 +31,7 @@ suspend inline fun SnackbarHostState.show(
     duration: SnackbarDuration = SnackbarDuration.Short,
     action: () -> Unit = {},
 ) = show(
-    message = throwable.message ?: context.getString(StringResource.default_error_message),
+    message = throwable.message ?: context.getString(R.string.default_error_message),
     actionLabel = actionLabel,
     withDismissAction = withDismissAction,
     duration = duration,

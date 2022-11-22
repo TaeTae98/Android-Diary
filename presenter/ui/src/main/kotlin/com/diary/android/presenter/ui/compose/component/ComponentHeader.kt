@@ -7,7 +7,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.diary.android.presenter.ui.compose.core.input.DescriptionTextField
 import com.diary.android.presenter.ui.compose.core.input.TitleTextField
-import com.diary.android.presenter.ui.theme.DiaryTheme3
 import com.diary.android.presenter.ui.uistate.core.TextInputUiState
 
 @Composable
@@ -26,6 +25,4 @@ fun ComponentHeader(
 
 @Preview
 @Composable
-private fun Preview() = DiaryTheme3 {
-    ComponentHeader()
-}
+private fun Preview() = ComponentHeader()

@@ -25,7 +25,8 @@ class OAuthDataSource @Inject constructor() {
         _user.emit(DiaryAccountEntity.from(result.user))
     }
 
-    suspend fun signOut() = FirebaseAuth.getInstance().signOut().also {
+    suspend fun signOut() {
+        FirebaseAuth.getInstance().signOut()
         _user.emit(DiaryAccountEntity.Guest)
     }
 }

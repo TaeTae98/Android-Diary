@@ -78,7 +78,7 @@ private data class Range(
 @Composable
 fun Calendar(
     modifier: Modifier = Modifier,
-    onPickDateRange: (beginDate: LocalDate, endDate: LocalDate) -> Unit = { _, _ -> }
+    onPickDateRange: (beginDate: Int, endDate: Int) -> Unit = { _, _ -> }
 ) {
     val coroutineScope = rememberCoroutineScope()
     val pagerState = rememberPagerState(initialPage = INITIAL_PAGE)
@@ -93,7 +93,7 @@ fun Calendar(
             onDragCanceled = { setRange(null) },
             onDragFinished = { beginDate, endDate ->
                 setRange(null)
-                onPickDateRange(beginDate, endDate)
+                onPickDateRange(beginDate.toEpochDays(), endDate.toEpochDays())
             }
         ),
         count = PAGE_COUNT,

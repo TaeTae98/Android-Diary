@@ -7,7 +7,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.diary.android.presenter.ui.theme.DiaryTheme3
 import com.diary.android.share.StringResource
 
 @Composable
@@ -22,6 +21,4 @@ fun AddIcon(
 
 @Preview
 @Composable
-private fun Preview() = DiaryTheme3 {
-    AddIcon()
-}
+private fun Preview() = AddIcon()

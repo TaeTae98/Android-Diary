@@ -17,11 +17,7 @@ class MoreListViewModel @Inject constructor() : ViewModel() {
     private val _action = MutableSharedFlow<MoreListAction>()
     val action = _action.asSharedFlow()
 
-    private val _uiState = MutableStateFlow(
-        MoreListUiState(
-            onAccount = ::account,
-        )
-    )
+    private val _uiState = MutableStateFlow(MoreListUiState(onAccount = ::account))
     val uiState = _uiState.asStateFlow()
 
     private fun account() = viewModelScope.launch {

@@ -3,7 +3,6 @@ package com.diary.android.data.entity
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.diary.android.domain.model.memo.Memo
-import com.diary.android.domain.model.memo.MemoState
 import java.util.UUID
 
 @Entity
@@ -13,7 +12,9 @@ data class MemoEntity(
     val userId: String? = null,
     val title: String = "",
     val description: String = "",
-    val state: MemoState = MemoState.NONE,
+    val state: Int = 0,
+    val beginDate: Int? = null,
+    val endDate: Int? = null,
     val updatedAt: Long = System.currentTimeMillis(),
 ) {
     constructor(memo: Memo, userId: String?) : this(
@@ -21,6 +22,8 @@ data class MemoEntity(
         userId = userId,
         title = memo.title,
         description = memo.description,
+        beginDate = memo.beginDate,
+        endDate = memo.endDate,
         updatedAt = memo.updatedAt
     )
 
@@ -28,6 +31,8 @@ data class MemoEntity(
         id = id,
         title = title,
         description = description,
+        beginDate = beginDate,
+        endDate = endDate,
         updatedAt = updatedAt
     )
 }

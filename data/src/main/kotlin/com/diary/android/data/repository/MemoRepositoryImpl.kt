@@ -33,11 +33,18 @@ class MemoRepositoryImpl @Inject constructor(
         }
     }
 
+    // TODO Service로 바꾸기
     override suspend fun migration() {
         val userId = oAuthDataSource.user.value.id ?: return
-        val entities = memoRoomDataSource.findMigrationData().map { it.copy(userId = userId) }
-        memoRoomDataSource.upsert(entities)
-        memoRemoteDataSource.upsert(entities)
+        while (true) {
+            val entities = memoRoomDataSource.findMigrationData().map { it.copy(userId = userId) }
+            if (entities.isEmpty()) {
+                break
+            }
+
+            memoRoomDataSource.upsert(entities)
+            memoRemoteDataSource.upsert(entities)
+        }
     }
 
     override suspend fun sync() {

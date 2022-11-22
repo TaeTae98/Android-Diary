@@ -3,11 +3,13 @@ package com.diary.android.presenter.memo.viewmodel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.diary.android.domain.constant.Const
 import com.diary.android.domain.constant.Parameter
 import com.diary.android.domain.model.Id
 import com.diary.android.domain.model.memo.Memo
 import com.diary.android.domain.usecase.memo.FindMemoUseCase
 import com.diary.android.domain.usecase.memo.MemoUpsertUseCase
+import com.diary.android.domain.utils.isNotNull
 import com.diary.android.domain.utils.onFalse
 import com.diary.android.domain.utils.onNullOrFalse
 import com.diary.android.domain.utils.onTrue
@@ -24,6 +26,9 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.todayIn
 import java.util.UUID
 import javax.inject.Inject
 
@@ -38,13 +43,13 @@ class MemoDetailViewModel @Inject constructor(
 
     private val id = savedStateHandle.getStateFlow(
         key = Parameter.ID,
-        initialValue = ""
+        initialValue = UUID.randomUUID().toString()
     ).map { id ->
-        id.takeIf { it != "" } ?: UUID.randomUUID().toString()
+        id.takeIf { it != Const.INVALID_ID } ?: UUID.randomUUID().toString()
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.Eagerly,
-        initialValue = ""
+        initialValue = UUID.randomUUID().toString()
     )
 
     private val isNew = savedStateHandle.getStateFlow(
@@ -57,23 +62,25 @@ class MemoDetailViewModel @Inject constructor(
         initialValue = ""
     )
 
+    private val hasDate = savedStateHandle.getStateFlow(
+        key = Parameter.HAS_DATE,
+        initialValue = hasDefaultDate(Parameter.BEGIN_DATE) && hasDefaultDate(Parameter.END_DATE)
+    )
+
     private val beginDate = savedStateHandle.getStateFlow(
-        key = Parameter.BEGIN_DATE,
-        initialValue = 0
+        key = Parameter.BEGIN_DATE_EDIT,
+        initialValue = getDefaultDate(Parameter.BEGIN_DATE)
     )
 
     private val endDate = savedStateHandle.getStateFlow(
-        key = Parameter.END_DATE,
-        initialValue = 0
+        key = Parameter.END_DATE_EDIT,
+        initialValue = getDefaultDate(Parameter.END_DATE)
     )
 
-    private val hasDate = savedStateHandle.getStateFlow(
-        key = Parameter.HAS_DATE,
-        initialValue = endDate.value != 0 && beginDate.value != 0
-    )
-
-    private val dateRangeUiState = combine(beginDate, endDate) { beginDate, endDate ->
+    private val dateRangeUiState = combine(hasDate, beginDate, endDate) { hasDate, beginDate, endDate ->
         ComponentDateRangeUiState(
+            hasDate = hasDate,
+            setHasDate = ::setHasDate,
             beginDate = beginDate,
             endDate = endDate,
             setBeginDate = ::setBeginDate,
@@ -83,8 +90,12 @@ class MemoDetailViewModel @Inject constructor(
         scope = viewModelScope,
         started = SharingStarted.Eagerly,
         initialValue = ComponentDateRangeUiState(
+            hasDate = hasDate.value,
+            setHasDate = ::setHasDate,
             beginDate = beginDate.value,
-            endDate = endDate.value
+            endDate = endDate.value,
+            setBeginDate = ::setBeginDate,
+            setEndDate = ::setEndDate
         )
     )
 
@@ -160,8 +171,8 @@ class MemoDetailViewModel @Inject constructor(
             MemoDetailUiState.Detail(
                 onNavigateUp = ::navigateUp,
                 titleUiState = titleUiState.value,
-                dateRangeUiState = dateRangeUiState.value,
                 descriptionUiState = descriptionUiState.value,
+                dateRangeUiState = dateRangeUiState.value,
             )
         }
     )
@@ -172,6 +183,9 @@ class MemoDetailViewModel @Inject constructor(
                 findMemoUseCase(Id(id.value)).getOrNull()?.let { memo ->
                     setTitle(memo.title)
                     setDescription(memo.description)
+                    setHasDate(memo.beginDate.isNotNull() && memo.endDate.isNotNull())
+                    setBeginDate(memo.beginDate ?: Clock.System.todayIn(TimeZone.currentSystemDefault()).toEpochDays())
+                    setEndDate(memo.endDate ?: Clock.System.todayIn(TimeZone.currentSystemDefault()).toEpochDays())
                     savedStateHandle[Parameter.IS_INITIALIZED] = true
                 }
             }
@@ -202,8 +216,13 @@ class MemoDetailViewModel @Inject constructor(
         value = description
     )
 
-    private fun setBeginDate(beginDate: Int): Unit = savedStateHandle.set(
-        key = Parameter.BEGIN_DATE,
+    private fun setHasDate(hasDate: Boolean = hasDefaultDate(Parameter.BEGIN_DATE) && hasDefaultDate(Parameter.END_DATE)) = savedStateHandle.set(
+        key = Parameter.HAS_DATE,
+        value = hasDate
+    )
+
+    private fun setBeginDate(beginDate: Int = getDefaultDate(Parameter.BEGIN_DATE)): Unit = savedStateHandle.set(
+        key = Parameter.BEGIN_DATE_EDIT,
         value = beginDate
     ).also {
         if (beginDate > endDate.value) {
@@ -211,8 +230,8 @@ class MemoDetailViewModel @Inject constructor(
         }
     }
 
-    private fun setEndDate(endDate: Int): Unit = savedStateHandle.set(
-        key = Parameter.BEGIN_DATE,
+    private fun setEndDate(endDate: Int = getDefaultDate(Parameter.BEGIN_DATE)): Unit = savedStateHandle.set(
+        key = Parameter.END_DATE_EDIT,
         value = endDate
     ).also {
         if (beginDate.value > endDate) {
@@ -247,4 +266,10 @@ class MemoDetailViewModel @Inject constructor(
             _action.emit(MemoDetailAction.TitleEmpty)
         }
     }
+
+    private fun hasDefaultDate(parameter: String) = savedStateHandle.get<Int>(parameter)?.takeIf { it != Const.INVALID_DATE }.isNotNull()
+
+    private fun getDefaultDate(parameter: String) = savedStateHandle.get<Int>(parameter)?.takeIf {
+        it != Const.INVALID_DATE
+    } ?: Clock.System.todayIn(TimeZone.currentSystemDefault()).toEpochDays()
 }

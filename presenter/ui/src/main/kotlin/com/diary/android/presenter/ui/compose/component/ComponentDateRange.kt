@@ -30,9 +30,18 @@ fun ComponentDateRange(
     uiState: ComponentDateRangeUiState = ComponentDateRangeUiState()
 ) = Card(modifier = modifier) {
     Column {
-        Header(uiState = uiState)
+        Header(
+            hasDate = uiState.hasDate,
+            setHasDate = uiState.setHasDate
+        )
+
         uiState.hasDate.onTrue {
-            DateRange(uiState = uiState)
+            DateRange(
+                beginDate = uiState.beginDate,
+                setBeginDate = uiState.setBeginDate,
+                endDate = uiState.endDate,
+                setEndDate = uiState.setEndDate
+            )
         }
     }
 }
@@ -40,38 +49,44 @@ fun ComponentDateRange(
 @Composable
 private fun Header(
     modifier: Modifier = Modifier,
-    uiState: ComponentDateRangeUiState
+    hasDate: Boolean,
+    setHasDate: (Boolean) -> Unit
 ) = Row(modifier = modifier) {
     Text(
-        modifier = Modifier.weight(1F).padding(DiaryDimen.DEFAULT_CONTENT_PADDING),
+        modifier = Modifier
+            .weight(1F)
+            .padding(DiaryDimen.DEFAULT_CONTENT_PADDING),
         text = stringResource(id = StringResource.date)
     )
     Switch(
-        checked = uiState.hasDate,
-        onCheckedChange = uiState.setHasDate
+        checked = hasDate,
+        onCheckedChange = setHasDate
     )
 }
 
 @Composable
 private fun DateRange(
     modifier: Modifier = Modifier,
-    uiState: ComponentDateRangeUiState,
+    beginDate: Int,
+    setBeginDate: (Int) -> Unit,
+    endDate: Int,
+    setEndDate: (Int) -> Unit
 ) = Row(
     modifier = modifier,
 ) {
     DateText(
-        epochDays = uiState.beginDate,
+        epochDays = beginDate,
         onClickLabel = stringResource(id = StringResource.begin_date),
-        onPickDate = uiState.setBeginDate
+        onPickDate = setBeginDate
     )
     Text(
         modifier = Modifier.padding(DiaryDimen.DEFAULT_CONTENT_PADDING),
         text = "~"
     )
     DateText(
-        epochDays = uiState.endDate,
+        epochDays = endDate,
         onClickLabel = stringResource(id = StringResource.end_date),
-        onPickDate = uiState.setEndDate
+        onPickDate = setEndDate
     )
 }
 

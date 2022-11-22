@@ -3,10 +3,10 @@ package com.diary.android.initializer
 import android.content.Context
 import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.startup.Initializer
-import com.android.diary.share.repeatOn
 import com.diary.android.di.InitializerEntryPoint
 import com.diary.android.domain.usecase.account.GetDiaryAccountUseCase
 import com.diary.android.domain.usecase.data.SyncDataUseCase
+import com.diary.android.share.repeatOn
 import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 

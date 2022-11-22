@@ -8,7 +8,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
-import com.diary.android.presenter.ui.theme.DiaryTheme3
 import com.diary.android.presenter.ui.uistate.core.TextInputUiState
 import com.diary.android.share.StringResource
 
@@ -29,6 +28,4 @@ fun TitleTextField(
 
 @Preview
 @Composable
-private fun Preview() = DiaryTheme3 {
-    TitleTextField()
-}
+private fun Preview() = TitleTextField()

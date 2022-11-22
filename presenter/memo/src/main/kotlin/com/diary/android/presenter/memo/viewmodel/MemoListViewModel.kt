@@ -25,9 +25,7 @@ class MemoListViewModel @Inject constructor(
     private val _action = MutableSharedFlow<MemoListAction>()
     val action = _action.asSharedFlow()
 
-    val uiState = MemoListUiState.List(
-        onAdd = ::add
-    )
+    val uiState = MemoListUiState.List(onAdd = ::add)
 
     val memoUiState = pagingMemoUseCase(Unit).onFailure {
         viewModelScope.launch { _action.emit(MemoListAction.Failure(it)) }

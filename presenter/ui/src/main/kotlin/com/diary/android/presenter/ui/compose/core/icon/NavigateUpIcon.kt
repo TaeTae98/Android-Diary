@@ -22,6 +22,4 @@ fun NavigateUpIcon(
 
 @Preview
 @Composable
-private fun Preview() = DiaryTheme3 {
-    NavigateUpIcon()
-}
+private fun Preview() = NavigateUpIcon()

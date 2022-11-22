@@ -22,6 +22,4 @@ fun ClearIcon(
 
 @Preview
 @Composable
-private fun Preview() = DiaryTheme3 {
-    ClearIcon()
-}
+private fun Preview() = ClearIcon()
